@@ -1,6 +1,6 @@
 # TPASASRec: Temporal Pattern Aware Self-Attention Sequential Recommender
 
-This project refer to the [SASRec](https://github.com/kang205/SASRec) and [TiSASRec](https://github.com/JiachengLi1995/TiSASRec) model research repo
+This project refer to the [TPA-LSTM](https://github.com/shunyaoshih/TPA-LSTM), [SASRec](https://github.com/kang205/SASRec) and [TiSASRec](https://github.com/JiachengLi1995/TiSASRec) model research repo
 
 ## Setup Environment - Python Built-in venv
 ```

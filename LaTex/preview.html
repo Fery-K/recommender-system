@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Main_File_Skripsi</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<div class="Abstrak">
+<p>Model sistem rekomendasi umumnya menganggap setiap interaksi
+mempunyai tingkat pengaruh yang sama sehingga hasil rekomendasi bersifat
+statis. Pada nyatanya, hasil rekomendasi diharapkan dapat menangkap
+perubahan pola perilaku <em>user-item</em> yang disebut sebagai
+<em>temporal dynamics</em>. Untuk menangani masalah tersebut, saat ini
+banyak dikembangkan sistem rekomendasi sekuensial yang dapat memodelkan
+barisan interaksi bergantung waktu (<em>listwise</em>). Tugas akhir ini
+mengembangkan model sistem rekomendasi sekuensial yang memperhatikan
+pola perubahan terhadap waktu dengan pendekatan mekanisme
+<em>self-attention</em> untuk pemrosesan sekuensial dan <em>temporal
+pattern attention</em> untuk memperhatikan pola perubahan temporal
+(<em>time-invariant</em>). Hasil tugas akhir ini diharapkan dapat
+memberikan pandangan baru bahwa perhatian yang relevan dapat lebih
+menghasilkan personalisasi terhadap perubahan dan perbedaan preferensi
+dalam sistem rekomendasi.</p>
+<p><em>Kata kunci</em>: sistem rekomendasi, pemrosesan sekuensial,
+<em>temporal dynamics</em>,<br />
+<em>self-attention</em>, <em>temporal pattern attention</em>.</p>
+</div>
+<div class="Abstract">
+<p>Recommendation system models generally assume that each pair of
+user-item interaction shares the same and equal importance. However, in
+reality, the outcomes of recommendation are expected to capture changes
+in user-item behavior, known as temporal dynamics. To address this
+issue, many sequential recommendation system have been developed to
+model time dependent interaction sequence (listwise). This study
+develops a sequential recommendation system that accounts for changes in
+behavior over time using self-attention mechanism for sequence
+processing and temporal pattern attention to capture temporal pattern
+(time-invariant). Results of this proposed study are expected to provide
+a new perspective, demonstrating that relevant attention may bring
+better personalization of preferences in recommendation system.</p>
+<p><em>Keywords</em>: recommendation system, sequence processing,
+temporal dynamics,<br />
+self-attention, temporal pattern attention.</p>
+</div>
+<div class="terimakasih">
+<p>Puji syukur penulis ucapkan kepada Tuhan Yang Maha Esa atas segala
+rahmat, karunia-Nya, dan kesempatan sehingga penulis dapat menyelesaikan
+tugas akhir ini yang berjudul <em>"Sistem Rekomendasi Sekuensial dengan
+Temporal Dynamics Menggunakan Self-Attention dan Temporal Pattern
+Attention"</em>. Selama menempuh studi dan menyelesaikan tugas akhir
+ini, penulis mendapatkan banyak pengalaman dan pembelajaran, mulai dari
+pengetahuan, karakter, hingga relasi sosial. Penulis tidak akan bisa
+melewati masa-masa tersebut tanpa bantuan dan dukungan dari berbagai
+pihak. Oleh karena itu, penulis ingin mengucapkan terima kasih
+sebesar-besarnya kepada:</p>
+<ol>
+<li><p>Keluarga penulis, Mendiang Bapak Chia Kia Phuen, Ibu Agustina,
+Kiky Kurniawan, Heny Kurniawati, Hendy Kurniawan, dan Reky Kurniawan
+atas dukungan, doa, dan kasih sayang yang tulus kepada penulis.</p></li>
+<li><p>Bapak Prof. Dr. Agus Yodi Gunawan, S.Si., M.Si., selaku dosen
+pembimbing penulis yang telah bersedia untuk membimbing dan membagikan
+wawasan kepada penulis.</p></li>
+<li><p>Ibu Dr. Gantina Rachmaputri, S.Si., M.Si., selaku dosen wali
+akademik penulis yang membantu dalam mengurus masalah akademik maupun
+non-akademik yang dialami penulis.</p></li>
+<li><p>Bapak Rudy Kusdiantara S.Si., M.Si., Ph.D. dan Bapak Muhammad
+Islahuddin, S.Si., M.Sc., selaku dosen penguji tugas akhir penulis yang
+telah bersedia meluangkan waktunya untuk memberikan kritik dan saran
+untuk tugas akhir ini.</p></li>
+<li><p>Bapak Dr. Saladin Uttunggadewa, M.Si. dan Bapak Ghany Hanifan
+Muslim S.Si., M.Sc., yang telah membagikan pengalaman untuk bekerja dan
+kesempatan proyek bersama kepada penulis.</p></li>
+<li><p>Felicia Lie, selaku pasangan penulis yang selalu menemani,
+mendukung, dan memotivasi penulis untuk menyelesaikan studi di Institut
+Teknologi Bandung.</p></li>
+<li><p>Vincent Franstyo, Bryan Guok, dan Aryadharma Wibowo, selaku teman
+baik penulis yang membagikan pengalaman positif dan menemani dari awal
+hingga akhir masa perkuliahan.</p></li>
+<li><p>Yohanes, Young, Matthew, Clara dan Nicholas, selaku teman dekat
+yang mengisi keseharian penulis dan menjadikan masa perkuliahan terasa
+lebih menyenangkan.</p></li>
+<li><p>M. Fadhlan Nafis, Felice Fisichella, dan Zhafir Wisam S., selaku
+teman diskusi di kelas yang telah mendorong penulis untuk belajar
+bersama.</p></li>
+<li><p>Maher Paskalius, Deven Gavino S., dan M. Adila Asfani, selaku
+teman pertama yang berjuang bersama penulis pada Tahap Persiapan
+Bersama.</p></li>
+<li><p>Kawan HIMATIKA ITB serta Teman-teman dari Unit Bulu Tangkis ITB
+dan Keluarga Mahasiswa Buddhis ITB yang mengisi kehidupan sosial penulis
+selama menjalani perkuliahan di Institut Teknologi Bandung.</p></li>
+<li><p>Seluruh dosen dan staf Program Studi Matematika Institut
+Teknologi Bandung atas ilmu, bantuan, dan pengalaman yang bermanfaat
+bagi penulis.</p></li>
+<li><p>Pihak-pihak lain yang tidak dapat disebutkan satu per satu tetapi
+ikut mendukung penulis selama menjalani perkuliahan di Institut
+Teknologi Bandung.</p></li>
+</ol>
+<p>Penulis menyadari bahwa tugas akhir ini masih memiliki banyak
+kekurangan dan ruang untuk perbaikan. Oleh karena itu, segala kritik dan
+saran yang membangun sangat diharapkan penulis untuk penyempurnaan tugas
+akhir ini.</p>
+<p>Akhir kata, penulis berharap tugas akhir ini dapat bermanfaat bagi
+pembaca dan perkembangan ilmu pengetahuan serta dapat menjadi referensi
+yang berguna untuk penelitian-penelitian di masa mendatang.</p>
+<div class="flushright">
+<p>Bandung, 2026-08-12</p>
+<p>Penulis</p>
+</div>
+</div>
+<h1 id="pendahuluan">Pendahuluan</h1>
+<p>Sistem rekomendasi merupakan suatu sistem filter yang memodelkan
+interaksi dengan memanfaatkan perilaku historis (data) pengguna
+(<em>user</em>) untuk merekomendasikan produk (<em>item</em>) yang
+relevan terhadap preferensi <em>user</em>. Sistem rekomendasi bertujuan
+dalam meningkatkan visibilitas <em>item</em> dan ketertarikan interaksi
+<em>user</em> (<em>user engagement</em>). Dalam konteks bisnis, sistem
+rekomendasi mampu meningkatkan nilai <em>click-through rates</em> hingga
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>30</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">30\%</annotation></semantics></math>
+dan nilai <em>conversion rates</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>−</mo><mn>5</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">2-5\%</annotation></semantics></math>
+yang berpengaruh pada tingkat penjualan <span class="citation"
+data-cites="seqrecsys"></span>.</p>
+<p>Sistem rekomendasi memanfaatkan algoritma pembelajaran mesin
+(<em>machine learning</em>) untuk memodelkan interaksi berbagai hal
+seperti membeli produk, menonton film, hingga jaringan pertemanan media
+sosial. Dua pendekatan umum model sistem rekomendasi, yaitu <em>content
+filtering</em> dan <em>collaborative filtering</em>. Namun, pendekatan
+tersebut mengganggap setiap interaksi <em>user-item</em> memiliki
+tingkat pengaruh yang sama sehingga hasil rekomendasi yang diberikan
+bersifat statis <span class="citation" data-cites="seqrecsys"></span>.
+Pada kenyataannya, preferensi pengguna dapat berubah terhadap waktu dan
+perbedaan perilaku dapat memberikan konteks yang berbeda yang disebut
+sebagai <em>temporal dynamics</em> <span class="citation"
+data-cites="netflix"></span>.</p>
+<p>Sebagai upaya untuk menangani masalah tersebut, maka dikembangkan
+sistem rekomendasi sekuensial yang memodelkan barisan interaksi
+<em>user</em>. Metode untuk pemrosesan sekuensial seperti proses rantai
+markov dan model jaringan saraf berulang (RNN) mampu untuk menangkap
+pola barisan <span class="citation" data-cites="seqrecsys"></span>. Akan
+tetapi, model semacam ini hanya memperhatikan pola pada barisan tanpa
+konteks interaksi dan tidak mampu memproses barisan yang panjang.</p>
+<p>Di sisi lain, Mekanisme atensi dikembangkan untuk proses
+<em>seq2seq</em> dapat menangani ketidakmampuan RNN dalam memproses
+barisan yang panjang dan memperhatikan konteks antar interaksi (token)
+dan menunjukkan kemampuan melakukan pemrosesan sekuensial secara efisien
+dengan mempertimbangkan kompleksitas komputasi per <em>layer</em>,
+paralelisasi dalam komputasi, dan minimum operasi sekuensial <span
+class="citation" data-cites="attention"></span>. Masalah selanjutnya
+adalah pemrosesan sekuensial pada umumnya tidak memodelkan interaksi
+terhadap waktu secara eksplisit. Akibatnya, diperlukan teknik
+<em>time-aware</em> untuk menyertakan informasi waktu secara
+eksplisit.</p>
+<p>Oleh karena itu, tugas akhir ini akan merancang sistem rekomendasi
+sekuensial yang memodelkan barisan interaksi yang bergantung waktu
+dengan menyertakan rentang waktu antar interaksi sebagai <em>temporal
+dynamics</em> menggunakan mekanisme <em>self-attention</em> dan
+<em>temporal pattern attention</em>.</p>
+<p>Rumusan masalah dari tugas akhir ini adalah sebagai berikut.</p>
+<ol>
+<li><p>Bagaimana melakukan pemrosesan sekuensial untuk memodelkan
+barisan interaksi historis pada sistem rekomendasi sekuensial?</p></li>
+<li><p>Bagaimana menyertakan rentang waktu sebagai <em>temporal
+dynamics</em> dalam model sistem rekomendasi sekuensial?</p></li>
+</ol>
+<p>Tujuan dari tugas akhir ini adalah sebagai berikut.</p>
+<ol>
+<li><p>Memodelkan barisan interaksi historis pada sistem rekomendasi
+sekuensial.</p></li>
+<li><p>Mengembangkan sistem rekomendasi sekuensial yang memperhatikan
+<em>temporal dynamics</em>.</p></li>
+</ol>
+<p>Tugas akhir ini terdiri dari lima bab, Bab I berisi pendahuluan dari
+tugas akhir yang mencakup latar belakang, rumusan masalah, tujuan, dan
+sistematika penulisan. Bab II berisi landasan teori mengenai metode yang
+digunakan dalam tugas akhir ini seperti pembelajaran mesin, sistem
+rekomendasi sekuensial, mekanisme <em>self-attention</em>, dll. Bab III
+berisi penjelasan kerangka kerja pemodelan tugas akhir untuk merancang
+sistem rekomendasi sekuensial. Bab IV berisi pembahasan hasil model
+sistem rekomendasi sekuensial yang dirancang hingga eksperimentasi
+model. Bab V berisi kesimpulan dari tugas akhir dan saran penulis untuk
+studi terkait ke depannya.</p>
+<h1 id="landasan-teori">Landasan Teori</h1>
+<h2 id="pembelajaran-mesin">Pembelajaran Mesin</h2>
+<p>Pembelajaran mesin (<em>machine learning</em>) adalah cabang dari
+kecerdasan buatan (<em>AI</em>) yang memungkinkan mesin untuk bisa
+belajar dari data tanpa diprogram secara eksplisit. Pembelajaran mesin
+dikembangkan dari cabang ilmu lain seperti matematika, statistika, dan
+<em>data mining</em> dengan mengembangkan algoritma untuk menangkap pola
+atau aturan yang diperoleh dari data untuk dapat menghasilkan keputusan
+atau melakukan suatu tugas, contohnya prediksi.</p>
+<p>Berdasarkan tipe pembelajaran, pembelajaran mesin dapat dikategorikan
+ke dalam beberapa jenis, seperti pembelajaran terawasi (<em>supervised
+learning</em>), pembelajaran tanpa pengawasan (<em>unsupervised
+learning</em>), dan pembelajaran penguatan (<em>reinforcement
+learning</em>). Ketiga pendekatan ini memiliki aplikasi luas dalam
+berbagai bidang, termasuk klasifikasi, pengenalan pola, serta sistem
+rekomendasi.</p>
+<h3 id="pembelajaran-mendalam">Pembelajaran Mendalam</h3>
+<p>Pembelajaran mendalam (<em>deep learning</em>) adalah jenis
+pembelajaran mesin yang lebih memanfaatkan otomasi sehingga mengurangi
+intervensi dari <em>expert</em> atau praktisi. Pada pembelajaran mesin
+sederhana, proses <em>engineer</em> fitur dilakukan oleh praktisi,
+sedangkan pembelajaran mendalam mempelajari secara otomatis dari data.
+Akibatnya, pembelajaran mendalam membutuhkan jumlah data yang lebih
+banyak untuk dapat mengekstrak pengetahuan data.</p>
+<p>Jaringan saraf tiruan (<em>neural network</em>) adalah fundamental di
+balik pembelajaran mendalam yang memungkinkan mesin mempelajari pola
+kompleks dengan meniru cara kerja saraf otak manusia dalam mengenali hal
+dan membuat keputusan. Jaringan saraf tiruan mengkonstruksi dan
+menyesuaikan koneksi pada fitur-fitur dengan nilai bobot untuk mengenali
+fenomena atau tugas tertentu. Secara sederhana, proses pembelajaran
+jaringan saraf tiruan dapat ditulis sebagai Persamaan (<a href="#eq:2.1"
+data-reference-type="ref" data-reference="eq:2.1">[eq:2.1]</a>).
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi mathvariant="bold-italic">𝒚</mi><mo accent="true">̂</mo></mover><mo>=</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑾</mi><mi mathvariant="bold-italic">𝒙</mi><mo>+</mo><mi mathvariant="bold-italic">𝒃</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:2.1}
+            \mathbf{\hat{y}} = f(\mathbf{W}\mathbf{x} + \mathbf{b}),
+\end{equation}</annotation></semantics></math> dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝒙</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>
+menyatakan vektor fitur masukan,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝑾</mi><annotation encoding="application/x-tex">\mathbf{W}</annotation></semantics></math>
+menyatakan matriks bobot,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝒃</mi><annotation encoding="application/x-tex">\mathbf{b}</annotation></semantics></math>
+menyatakan vektor suku bias,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
+menyatakan fungsi yang memetakan lapisan masukan ke lapisan keluaran,
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi mathvariant="bold-italic">𝒚</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\mathbf{\hat{y}}</annotation></semantics></math>
+merupakan respon atau hasil prediksi.</p>
+<h3 id="jaringan-saraf-berulang-rnn">Jaringan Saraf Berulang (RNN)</h3>
+<p>Jaringan saraf berulang (<em>recurrent neural network</em>) adalah
+jenis jaringan saraf tiruan yang didesain secara sekuensial dan
+menggunakan arsitektur umpan balik untuk menyertakan pengaruh dari
+keadaan sebelumnya (lihat <a href="#fig:rnn" data-reference-type="ref"
+data-reference="fig:rnn">2.1</a>).</p>
+<figure id="fig:rnn" data-latex-placement="H">
+<p><span><img src="./Figure/RNN.png" style="width:75.0%"
+alt="image" /></span></p>
+<figcaption>Arsitektur jaringan saraf berulang.</figcaption>
+</figure>
+<p>Keadaan tersembunyi (<em>hidden state</em>) merupakan umpan balik
+dari jaringan saraf berulang yang menyimpan informasi historis atau
+memori setiap langkah pada barisan yang bertujuan untuk memperhatikan
+ketergantungan antar interaksi pada pemrosesan sekuensial.</p>
+<p>Misalkan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>f</mi><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></msub><annotation encoding="application/x-tex">f_{\mathbf{W}^{(h)}}</annotation></semantics></math>
+suatu fungsi dengan parameter bobot
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathbf{W}^{(h)}</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="bold-italic">𝒙</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\mathbf{x}_t</annotation></semantics></math>
+adalah vektor fitur masukan pada langkah
+ke-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>.
+Definisikan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="bold-italic">𝒉</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\mathbf{h}_t</annotation></semantics></math>
+sebagai vektor keadaan yang menyimpan memori hingga langkah
+ke-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>,
+dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathbf{W}^{(y)}</annotation></semantics></math>
+adalah matriks bobot keluaran,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝒃</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathbf{b}^{(y)}</annotation></semantics></math>
+adalah vektor bias keluaran, dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi mathvariant="bold-italic">𝒚</mi><mo accent="true">̂</mo></mover><mi>t</mi></msub><annotation encoding="application/x-tex">\mathbf{\hat{y}}_t</annotation></semantics></math>
+adalah hasil prediksi.
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi mathvariant="bold-italic">𝒉</mi><mi>t</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msub><mi>f</mi><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></msub><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="bold-italic">𝒉</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>,</mo><msub><mi mathvariant="bold-italic">𝒙</mi><mi>t</mi></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mover><mi mathvariant="bold-italic">𝒚</mi><mo accent="true">̂</mo></mover><mi>t</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><msub><mi mathvariant="bold-italic">𝒉</mi><mi>t</mi></msub><mo>+</mo><msup><mi mathvariant="bold-italic">𝒃</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:2.2}
+            \begin{split}
+            \mathbf{h}_t &amp;= f_{\mathbf{W}^{(h)}}(\mathbf{h}_{t-1}, \mathbf{x}_t) \\
+            \mathbf{\hat{y}}_t &amp;= \mathbf{W}^{(y)} \mathbf{h}_t + \mathbf{b}^{(y)}.
+            \end{split}
+\end{equation}</annotation></semantics></math> Persamaan (<a
+href="#eq:2.2" data-reference-type="ref"
+data-reference="eq:2.2">[eq:2.2]</a>) merupakan bentuk dasar dari RNN
+yang disebut <em>vanilla recurrent neural network</em> atau <em>plain
+recurrent neural network</em>. Lebih jauh lagi, arsitektur RNN dapat
+dikembangkan lebih lanjut, sebagai contoh <em>gated recurrent units</em>
+(GRUs), <em>long short-term memory</em> (LSTM), RNN dua arah <span
+class="citation" data-cites="dl2ai"></span>.</p>
+<h3 id="jaringan-saraf-konvolusional-cnn">Jaringan Saraf Konvolusional
+(CNN)</h3>
+<p>Jaringan saraf konvolusional (<em>convolutional neural network</em>)
+adalah jenis jaringan saraf tiruan yang menggunakan representasi
+hierarki fitur untuk menangkap pola lokal dan hubungan spasial. CNN
+banyak digunakan dalam tugas visi komputer, misalnya mengenali gambar
+dengan mengekstrak fitur untuk mendeteksi karakteristik seperti sisi,
+tekstur, bentuk (lihat <a href="#fig:cnn" data-reference-type="ref"
+data-reference="fig:cnn">2.2</a>).</p>
+<figure id="fig:cnn" data-latex-placement="H">
+<p><span><img src="./Figure/CNN.jpg" style="width:75.0%"
+alt="image" /></span></p>
+<figcaption>Ilustrasi jaringan saraf konvolusional dalam mengenali
+gambar.</figcaption>
+</figure>
+<p>Proses konvolusi pada CNN dilakukan dengan mengaplikasikan suatu
+matriks kernel yang dipelajari untuk mengekstrak fitur dari masukan
+dengan memanfaatkan fungsi konvolusi yang didefinisikan oleh Persamaan
+(<a href="#eq:2.3" data-reference-type="ref"
+data-reference="eq:2.3">[eq:2.3]</a>)
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>f</mi><mo>*</mo><mi>g</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒕</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∫</mo><mrow><mi>−</mi><mi>∞</mi></mrow><mi>∞</mi></msubsup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo stretchy="false" form="postfix">)</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒕</mi><mo>−</mo><mi mathvariant="bold-italic">𝒙</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.278em"></mspace><mi>d</mi><mi mathvariant="bold-italic">𝒕</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:2.3}
+            (f * g)(\mathbf{t}) = \int_{-\infty}^{\infty} f(\mathbf{x}) g(\mathbf{t} - \mathbf{x}) \; d\mathbf{t}.
+\end{equation}</annotation></semantics></math> Misalkan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><mo>,</mo><msub><mi mathvariant="bold-italic">𝑿</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo>,</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">\mathbf{W}_{(m,n)}, \mathbf{X}_{(m,n)}</annotation></semantics></math>
+berturut-turut menyatakan entri ke
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>,</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">m,n</annotation></semantics></math>
+dari matriks kernel, dan matriks masukan. Hasil konvolusi pada masukan
+2-dimensi untuk entri ke
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i, j</annotation></semantics></math>
+diberikan oleh Persamaan (<a href="#eq:2.4" data-reference-type="ref"
+data-reference="eq:2.4">[eq:2.4]</a>), dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>,</mo><mi>v</mi></mrow><annotation encoding="application/x-tex">u, v</annotation></semantics></math>
+adalah langkah konvolusi.
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi mathvariant="bold-italic">𝒀</mi><mo accent="true">̂</mo></mover><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo>=</mo><munder><mo>∑</mo><mi>u</mi></munder><munder><mo>∑</mo><mi>v</mi></munder><msub><mi mathvariant="bold-italic">𝑿</mi><mrow><mi>i</mi><mo>+</mo><mi>u</mi><mo>,</mo><mi>j</mi><mo>+</mo><mi>v</mi></mrow></msub><msub><mi mathvariant="bold-italic">𝑾</mi><mrow><mi>u</mi><mo>,</mo><mi>v</mi></mrow></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:2.4}
+            \mathbf{\hat{Y}}_{i, j} = \sum_u \sum_v \mathbf{X}_{i+u, j+v} \mathbf{W}_{u, v}.
+\end{equation}</annotation></semantics></math> Selain digunakan untuk
+melakukan proses pada data <em>grid</em> seperti gambar, CNN juga
+menunjukkan kemampuan dalam menangkap konteks pada pemrosesan data deret
+waktu <span class="citation" data-cites="tpa"></span>.</p>
+<h2 id="mekanisme-atensi">Mekanisme Atensi</h2>
+<p>Mekanisme atensi pertama kali dikenalkan untuk proses pada mesin
+penerjemah (<em>machine translation</em>) yang dikenal dengan Atensi
+Bahdanau. Mekanisme atensi kemudian dikembangkan lebih lanjut sebagai
+komponen dalam arsitektur <em>transformer</em> yang menjadi fundamental
+dari model <em>large language model</em> (LLM).</p>
+<p>Mekanisme atensi memungkinkan sebuah model untuk secara adaptif
+menentukan bagian mana dari masukan yang lebih relevan untuk setiap
+keluaran dengan melakukan pembobotan. Oleh karena itu, mekanisme atensi
+banyak digunakan dalam pemrosesan sekuensial
+<em>sequence-to-sequence</em> dan menggantikan jaringan saraf berulang
+untuk memproses barisan yang cenderung panjang.</p>
+<h3 id="sec:qkv"><em>Queries, Keys, Values</em></h3>
+<p>Mekanisme atensi memproses informasi melalui serangkaian operasi pada
+tiga komponen, yaitu <em>query</em>, <em>key</em>, dan <em>value</em>.
+<em>Query</em> mewakili elemen yang sedang diproses dan digunakan untuk
+mencari relevansi terhadap elemen lain. <em>Key</em> mewakili kunci
+pencarian setiap elemen yang menentukan hubungan antar elemen.
+<em>Value</em> mewakili informasi mentah dari setiap elemen yang akan
+dilakukan pembobotan berdasarkan relevansi yang telah ditentukan.</p>
+<p>Dalam prosesnya, nilai dari <em>query</em>, <em>key</em>,
+<em>value</em> diperoleh melalui suatu pemetaan linear terhadap vektor
+representasi (<em>embedding</em>) dari masukan. Misalkan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝑿</mi><annotation encoding="application/x-tex">\mathbf{X}</annotation></semantics></math>
+merupakan matriks <em>embedding</em> dari masukan, dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>,</mo><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>,</mo><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>V</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{W}^{(Q)}, \mathbf{W}^{(K)}, \mathbf{W}^{(V)}</annotation></semantics></math>
+berturut-turut menyatakan matriks bobot untuk <em>queries</em>,
+<em>keys</em>, <em>values</em> yang dipelajari. Matriks
+<em>queries</em>, <em>keys</em>, <em>values</em> berturut-turut dapat
+ditulis sebagai
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑸</mi><mo>=</mo><mi mathvariant="bold-italic">𝑿</mi><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>,</mo><mspace width="1.0em"></mspace><mi mathvariant="bold-italic">𝑲</mi><mo>=</mo><mi mathvariant="bold-italic">𝑿</mi><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>,</mo><mspace width="1.0em"></mspace><mi mathvariant="bold-italic">𝑽</mi><mo>=</mo><mi mathvariant="bold-italic">𝑿</mi><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>V</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+            \mathbf{Q} = \mathbf{X} \mathbf{W}^{(Q)}, \quad
+            \mathbf{K} = \mathbf{X} \mathbf{W}^{(K)}, \quad
+            \mathbf{V} = \mathbf{X} \mathbf{W}^{(V)}.
+\end{equation}</annotation></semantics></math></p>
+<h3 id="sec:sdp"><em>Scaled Dot-Product</em></h3>
+<p><em>Scaled dot-product</em> merupakan salah satu fungsi skoring yang
+banyak digunakan dalam mekanisme atensi karena lebih efisien secara
+komputasi. Fungsi skoring bertujuan untuk menentukan seberapa besar
+bobot atensi setiap elemen masukan relevan terhadap keluaran.</p>
+<figure id="fig:sdp" data-latex-placement="H">
+<p><span><img src="./Figure/attention scoring.png" style="width:75.0%"
+alt="image" /></span></p>
+<figcaption>Diagram fungsi skoring.</figcaption>
+</figure>
+<p>Diberikan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑸</mi><mo>,</mo><mi mathvariant="bold-italic">𝑲</mi><mo>,</mo><mi mathvariant="bold-italic">𝑽</mi></mrow><annotation encoding="application/x-tex">\mathbf{Q}, \mathbf{K}, \mathbf{V}</annotation></semantics></math>
+menyatakan matriks <em>queries</em>, <em>keys</em>, <em>values</em>
+secara berturutan. Misalkan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝒒</mi><mo>,</mo><mi mathvariant="bold-italic">𝒌</mi><mo>,</mo><mi mathvariant="bold-italic">𝒗</mi><mo>∈</mo><msup><mi mathvariant="double-struck">ℝ</mi><mrow><mn>1</mn><mo>×</mo><mi>d</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{q}, \mathbf{k}, \mathbf{v} \in \mathbb{R}^{1\times d}</annotation></semantics></math>
+berturut-turut menyatakan vektor baris dari
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑸</mi><mo>,</mo><mi mathvariant="bold-italic">𝑲</mi><mo>,</mo><mi mathvariant="bold-italic">𝑽</mi></mrow><annotation encoding="application/x-tex">\mathbf{Q}, \mathbf{K}, \mathbf{V}</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math>
+adalah ukuran dimensi dari <em>key</em>. Fungsi skoring <em>scaled
+dot-product</em> didefinisikan oleh Persamaan (<a href="#eq:2.6"
+data-reference-type="ref" data-reference="eq:2.6">[eq:2.6]</a>)
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒒</mi><mo>,</mo><mi mathvariant="bold-italic">𝒌</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mi mathvariant="bold-italic">𝒒</mi><mspace width="0.278em"></mspace><msup><mi mathvariant="bold-italic">𝒌</mi><mo>⊺</mo></msup></mrow><msqrt><mi>d</mi></msqrt></mfrac></mstyle><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:2.6}
+            \alpha(\mathbf{q}, \mathbf{k}) = \dfrac{\mathbf{q} \;\mathbf{k}^\intercal}{\sqrt{d}}.
+\end{equation}</annotation></semantics></math></p>
+<p>Setiap hasil dari fungsi skoring dikenakan fungsi softmax
+menghasilkan vektor bobot atensi. Selanjutnya, bobot atensi digunakan
+untuk membobotkan setiap <em>value</em> yang bersesuaian dengan operasi
+perkalian (lihat <a href="#fig:sdp" data-reference-type="ref"
+data-reference="fig:sdp">2.3</a>). Jadi, proses atensi <em>scaled
+dot-product</em> secara lengkap ditulis sebagai
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">atensi</mtext><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑸</mi><mo>,</mo><mi mathvariant="bold-italic">𝑲</mi><mo>,</mo><mi mathvariant="bold-italic">𝑽</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mtext mathvariant="normal">softmax</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mstyle displaystyle="true"><mfrac><mrow><mi mathvariant="bold-italic">𝑸</mi><msup><mi mathvariant="bold-italic">𝑲</mi><mo>⊺</mo></msup></mrow><msqrt><mi>d</mi></msqrt></mfrac></mstyle><mo stretchy="true" form="postfix">)</mo></mrow><mi mathvariant="bold-italic">𝑽</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+            \text{atensi}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\dfrac{\mathbf{Q} \mathbf{K}^\intercal}{\sqrt{d}}\right) \mathbf{V},
+\end{equation}</annotation></semantics></math> dengan softmax merupakan
+fungsi yang memetakan vektor baris dari matriks masukan ke distribusi
+peluangnya, yang dinyatakan oleh Persamaan (<a href="#eq:2.8"
+data-reference-type="ref" data-reference="eq:2.8">[eq:2.8]</a>)
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">x</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑿</mi><msub><mo stretchy="false" form="postfix">)</mo><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo>=</mo><mfrac><mrow><mrow><mi mathvariant="normal">exp</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="bold-italic">𝑿</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><mrow><munder><mo>∑</mo><mi>k</mi></munder><mrow><mi mathvariant="normal">exp</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi mathvariant="bold-italic">𝑿</mi><mrow><mi>i</mi><mo>,</mo><mi>k</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:2.8}
+        \mathrm{softmax}(\mathbf{X})_{i,j} = \frac{\exp({\mathbf{X}_{i,j}})}{\sum_{k} \exp({\mathbf{X}_{i,k}})}.
+\end{equation}</annotation></semantics></math></p>
+<h3 id="sec:mha">Atensi <em>Multi-Head</em></h3>
+<p>Dalam implementasi mekanisme atensi, ada baiknya melakukan beberapa
+proses atensi secara paralel untuk menangkap informasi dari representasi
+subruang berbeda. Teknik tersebut dikenal dengan atensi
+<em>multi-head</em>.</p>
+<figure id="fig:mha" data-latex-placement="H">
+<p><span><img src="./Figure/multihead attention.png" style="width:40.0%"
+alt="image" /></span></p>
+<figcaption>Diagram atensi <em>multi-head</em>.</figcaption>
+</figure>
+<p>Alih-alih melakukan proses atensi tunggal, atensi <em>multi-head</em>
+menggunakan sebanyak
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+pemetaan linear berbeda yang dikenakan pada proses atensi sehingga
+terjadi sebanyak
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>
+proses atensi<em>scaled dot-product</em> (lihat <a href="#fig:mha"
+data-reference-type="ref" data-reference="fig:mha">2.4</a>). Definisikan
+matriks hasil dari proses atensi <em>scaled dot-product</em>
+ke-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+sebagai
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold-italic">𝑯</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>=</mo><msub><mtext mathvariant="normal">atensi</mtext><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑸</mi><mo>,</mo><mi mathvariant="bold-italic">𝑲</mi><mo>,</mo><mi mathvariant="bold-italic">𝑽</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+            \mathbf{H}^{(i)} = \text{atensi}_{i}(\mathbf{Q}, \mathbf{K}, \mathbf{V}).
+\end{equation}</annotation></semantics></math> Selanjutnya semua
+<em>head</em> akan disatukan dengan augmentasi matriks terhadap kolom
+dan dikenakan pemetaan linear lain dengan matriks bobot keluaran
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>O</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathbf{W}^{(O)}</annotation></semantics></math>
+untuk menghasilkan matriks atensi akhir yang diberikan oleh Persamaan
+(<a href="#eq:2.10" data-reference-type="ref"
+data-reference="eq:2.10">[eq:2.10]</a>).
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="italic">𝑚𝑢𝑙𝑡𝑖-ℎ𝑒𝑎𝑑</mtext><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝑸</mi><mo>,</mo><mi mathvariant="bold-italic">𝑲</mi><mo>,</mo><mi mathvariant="bold-italic">𝑽</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msup><mi mathvariant="bold-italic">𝑯</mi><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></msup><mspace width="0.278em"></mspace><mspace width="0.278em"></mspace><mo stretchy="false" form="prefix">|</mo><mspace width="0.278em"></mspace><mspace width="0.278em"></mspace><mi>⋯</mi><mspace width="0.278em"></mspace><mspace width="0.278em"></mspace><mo stretchy="false" form="prefix">|</mo><mspace width="0.278em"></mspace><mspace width="0.278em"></mspace><msup><mi mathvariant="bold-italic">𝑯</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="0.278em"></mspace><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>O</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:2.10}
+            \textit{multi-head}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = 
+            \begin{bmatrix}
+                \mathbf{H}^{(1)} \;\; | \;\;
+                \cdots \;\; | \;\;
+                \mathbf{H}^{(h)}
+            \end{bmatrix} \;
+            \mathbf{W}^{(O)}.
+\end{equation}</annotation></semantics></math></p>
+<h2 id="sistem-rekomendasi-sekuensial">Sistem Rekomendasi
+Sekuensial</h2>
+<p>Sistem rekomendasi banyak digunakan dalam industri dan sering kali
+berinteraksi dengan kehidupan sehari-hari. Sistem ini diterapkan di
+berbagai bidang seperti situs belanja, layanan film, hingga jaringan
+pertemanan dalam media sosial. Tujuan utama dari sistem rekomendasi
+adalah membantu pengguna menemukan hal (<em>item</em>) yang relevan
+terhadap preferensinya.</p>
+<p>Di sisi bisnis, sistem rekomendasi dipercaya mampu membantu untuk
+meningkatkan <em>conversion rates</em> (CVR) sekitar
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>−</mo><mn>5</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">2-5\%</annotation></semantics></math>
+dan <em>click-through rates</em> (CTR) hingga
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>30</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">30\%</annotation></semantics></math>.
+CVR dan CTR adalah metrik untuk mengukur seberapa pengguna terpengaruh
+oleh rekomendasi yang diberikan, di mana CTR mengukur rasio banyak
+pengguna mengeklik rekomendasi dibanding total impresi yang mungkin dan
+CVR mengukur rasio banyak pengguna melakukan interaksi setelah mengeklik
+rekomendasi dibanding total klik yang mungkin.</p>
+<figure id="fig:seqrec" data-latex-placement="H">
+<p><span><img src="./Figure/seqrec.png" style="width:75.0%"
+alt="image" /></span></p>
+<figcaption>Ilustrasi interaksi sekuensial.</figcaption>
+</figure>
+<p>Sering kali interaksi antar pengguna dan <em>item</em> saling
+bergantung sekuensial yang artinya suatu interaksi dapat mempengaruhi
+interaksi berikutnya secara sekuensial. Oleh karena itu, sistem
+rekomendasi sekuensial memiliki tingkat personalisasi yang lebih tinggi
+dibandingkan dengan sistem rekomendasi konvensional.</p>
+<p>Sistem rekomendasi sekuensial memodelkan barisan interaksi pengguna
+dengan melakukan pemrosesan sekuensial dalam memberikan rekomendasi yang
+relevan seperti yang ditunjukkan pada <a href="#fig:seqrec"
+data-reference-type="ref" data-reference="fig:seqrec">2.5</a>. Berbagai
+sistem rekomendasi sekuensial telah dikembangkan seperti SASRec,
+GRU4Rec, dan BERT4Rec menunjukkan kelebihan model sekuensial dalam
+bidang sistem rekomendasi.</p>
+<h2 id="aljabar-linear">Aljabar Linear</h2>
+<p>Aljabar linear adalah cabang ilmu matematika yang mempelajari sistem
+linear melalui pemahaman akan matriks, ruang vektor, dan pemetaan (atau
+transformasi) linear. Aljabar linear banyak berperan dalam bidang ilmu
+sains maupun bidang teknik karena mampu menjelaskan dan memodelkan
+fenomena yang terjadi di sekitar kita. Pengetahuan aljabar linear juga
+mampu menjelaskan ilmu geometri dalam pandangan baru sehingga disebut
+aljabar linear juga dikenal sebagai fundamental geometri modern.</p>
+<p>Lebih lanjut lagi, aljabar linear berkaitan dengan representasi dan
+manipulasi data dalam bentuk matriks dan vektor. Karena kemampuannya
+dalam melakukan pemrosesan data, aljabar linear menjadi salah satu dasar
+dalam pembelajaran mesin. Algoritma pembelajaran mesin sering kali
+memerlukan operasi matriks dan vektor untuk mengelola data pada proses
+pembelajarannya. Selain itu, pemetaan linear juga merupakan aspek
+penting pada proses pemodelan karena dapat mengawetkan sifat struktur
+linear dari ruang vektor.</p>
+<h3 id="matriks-dan-vektor">Matriks dan Vektor</h3>
+<p>Matriks adalah susunan bilangan (<em>array</em>) dimensi dua yang
+diatur dalam baris dan kolom, sedangkan vektor adalah kasus khusus dari
+matriks dengan dimensi satu. Perumuman dari matriks disebut dengan
+tensor, merupakan susunan bilangan dimensi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+<span class="citation" data-cites="dl2ai"></span>. Secara umum, sebuah
+matriks
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+baris dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+kolom dinyatakan sebagai
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝑨</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>a</mi><mn>11</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>a</mi><mn>12</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>a</mi><mrow><mn>1</mn><mi>n</mi></mrow></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>a</mi><mn>21</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>a</mi><mn>22</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>a</mi><mrow><mn>2</mn><mi>n</mi></mrow></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><mo>⋱</mo></mtd><mtd columnalign="center" style="text-align: center"><mi>⋮</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>a</mi><mrow><mi>m</mi><mn>1</mn></mrow></msub></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>a</mi><mrow><mi>m</mi><mn>2</mn></mrow></msub></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>a</mi><mrow><mi>m</mi><mi>n</mi></mrow></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+             \mathbf{A}=\begin{bmatrix}
+                 a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \\
+                 a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \\
+                 \cdots &amp; \cdots &amp; \ddots &amp; \vdots \\
+                 a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
+             \end{bmatrix},
+\end{equation}</annotation></semantics></math> di mana
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">a_{ij}</annotation></semantics></math>
+disebut sebagai elemen matriks pada baris
+ke-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+dan kolom
+ke-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+atau dapat ditulis
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="bold-italic">𝑨</mi><mrow><mi>i</mi><mo>,</mo><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">\mathbf{A}_{i,j}</annotation></semantics></math>.</p>
+<p>Di sisi lain, vektor memiliki berbagai interpretasi, seperti besaran
+yang dengan nilai dan arah, posisi dalam ruang dimensi tinggi, hingga
+representasi fitur dalam pembelajaran mesin. Definisikan Vektor baris
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝒗</mi><annotation encoding="application/x-tex">\mathbf{v}</annotation></semantics></math>
+dengan dimensi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">1 \times n</annotation></semantics></math>
+yang dinyatakan sebagai
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝒗</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>v</mi><mn>1</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>v</mi><mn>2</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>v</mi><mi>n</mi></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+             \mathbf{v}=\begin{bmatrix}
+                 v_1 &amp;
+                 v_2 &amp;
+                 \cdots &amp;
+                 v_n
+             \end{bmatrix}.
+\end{equation}</annotation></semantics></math> Vektor semacam ini dapat
+dipandang sebagai representasi matriks berukuran
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>×</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">1 \times n</annotation></semantics></math>.
+Sebaliknya, vektor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝒖</mi><annotation encoding="application/x-tex">\mathbf{u}</annotation></semantics></math>
+dengan dimensi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+merupakan representasi matriks berukuran
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>×</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n \times 1</annotation></semantics></math>
+yang memenuhi sifat
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝒗</mi><mo>=</mo><msup><mi mathvariant="bold-italic">𝒖</mi><mo>⊺</mo></msup></mrow><annotation encoding="application/x-tex">\mathbf{v} = \mathbf{u}^\intercal</annotation></semantics></math>
+disebut sebagai vektor kolom.</p>
+<h3 id="pemetaan-linear">Pemetaan Linear</h3>
+<p>Pemetaan linear atau dikenal juga dengan transformasi linear adalah
+sebuah fungsi yang memetakan sebuah vektor dari suatu ruang vektor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒰</mi><annotation encoding="application/x-tex">\mathcal{U}</annotation></semantics></math>
+ke ruang vektor lain
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒱</mi><annotation encoding="application/x-tex">\mathcal{V}</annotation></semantics></math>
+yang mengawetkan operasi penjumlahan dan perkalian pada vektor <span
+class="citation" data-cites="alin"></span>.</p>
+<p>Lebih jauh lagi, suatu pemetaan linear yang bersifat bijektif akan
+mempertahankan struktur dari ruang vektor domainnya. Secara matematis,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>:</mo><mi mathvariant="script">𝒰</mi><mo>→</mo><mi mathvariant="script">𝒱</mi></mrow><annotation encoding="application/x-tex">T: \mathcal{U} \longrightarrow \mathcal{V}</annotation></semantics></math>
+dikatakan pemetaan linear jika untuk setiap
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">𝒙</mi><mo>,</mo><mi mathvariant="bold-italic">𝒚</mi><mo>∈</mo><mi mathvariant="script">𝒰</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathbf{x}, \mathbf{y} \in \mathcal{U},</annotation></semantics></math>
+dan skalar
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>,
+berlaku
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo>+</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mi mathvariant="bold-italic">𝒚</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒚</mi><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mtext mathvariant="normal">dan</mtext><mspace width="1.0em"></mspace><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mi mathvariant="bold-italic">𝒙</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>α</mi><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>⇔</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>α</mi><mi mathvariant="bold-italic">𝒙</mi><mo>+</mo><mi mathvariant="bold-italic">𝒚</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>α</mi><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒚</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+        \begin{split}
+            T(\mathbf{x} + &amp;\mathbf{y}) = T(\mathbf{x}) + T(\mathbf{y}) \quad \text{dan} \quad T(\alpha \mathbf{x}) = \alpha T(\mathbf{x}). \\
+            &amp;\iff T(\alpha \mathbf{x} + \mathbf{y}) = \alpha T(\mathbf{x}) + T(\mathbf{y})
+        \end{split}
+\end{equation}</annotation></semantics></math></p>
+<figure id="fig:fclayer" data-latex-placement="H">
+<p><span><img src="./Figure/fc layer.png" style="width:75.0%"
+alt="image" /></span></p>
+<figcaption>Ilustrasi lapisan terhubung lengkap.</figcaption>
+</figure>
+<p>Dalam konteks model jaringan saraf tiruan, pemetaan linear digunakan
+pada lapisan terhubung lengkap (<em>fully-connected layer</em>).</p>
+<p>Pada penggunaannya, lapisan terhubung lengkap menghubungkan koneksi
+setiap fitur dari lapisan sebelumnya sehingga setiap fitur akan
+memberikan kontribusi terhadap keluaran (lihat <a href="#fig:fclayer"
+data-reference-type="ref" data-reference="fig:fclayer">2.6</a>).
+Pemetaan linear berfungsi mentransformasi data ke ruang baru untuk
+menangkap informasi atau hubungan pada data.</p>
+<h2 id="optimisasi-pembelajaran">Optimisasi Pembelajaran</h2>
+<p>Optimisasi adalah ilmu matematika yang mempelajari bagaimana solusi
+terbaik (optimal) yang mungkin dari suatu fungsi, berdasarkan kriteria
+tertentu. Masalah optimisasi dapat diformulasikan dalam bentuk umum,
+yaitu
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">minimumkan</mtext><mspace width="0.278em"></mspace><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mtext mathvariant="normal">dengan kendala</mtext><mspace width="0.278em"></mspace><mi mathvariant="bold-italic">𝒙</mi><mo>∈</mo><mi mathvariant="script">𝒳</mi><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation*}
+    \text{minimumkan} \; f(\mathbf{x}) \quad \text{dengan kendala} \; \mathbf{x} \in \mathcal{X},
+\end{equation*}</annotation></semantics></math> dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝒙</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(\mathbf{x})</annotation></semantics></math>
+merupakan fungsi objektif yang ingin dioptimalkan, dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒳</mi><annotation encoding="application/x-tex">\mathcal{X}</annotation></semantics></math>
+merupakan ruang solusi. Jika masalah optimisasi yang dihadapi adalah
+maksimisasi, maka tanda fungsi objektif dapat diubah negatif untuk
+menjadi masalah minimisasi.</p>
+<p>Dalam konteks pembelajaran mesin, metode optimisasi berperan untuk
+menentukan parameter model
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝜽</mi><annotation encoding="application/x-tex">\bm{\theta}</annotation></semantics></math>
+yang mengoptimalkan fungsi <em>loss</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℒ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝜽</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{L}(\bm{\theta})</annotation></semantics></math>.
+Proses optimisasi untuk memperbarui parameter model disebut dengan
+pembelajaran. Sering kali fungsi objektif untuk model pembelajaran
+mendalam cenderung kompleks sehingga tidak memiliki solusi analitik.
+Oleh karena itu, diperlukan metode numerik untuk menentukan solusi
+optimal dari optimisasi pembelajaran.</p>
+<h3 id="gradient-descent"><em>Gradient Descent</em></h3>
+<p>Metode <em>gradient descent</em> merupakan salah satu metode numerik
+tertua untuk menyelesaikan masalah optimisasi. Walaupun metode
+<em>gradient descent</em> sudah jarang digunakan dalam optimisasi
+pembelajaran, namun pemahaman metode ini menjadi fundamental dari
+algoritma optimisasi pembelajaran lain seperti <em>stochastic gradient
+descent</em> dan <em>adaptive moment estimation</em>.</p>
+<figure id="fig:gd" data-latex-placement="H">
+<p><span><img src="./Figure/gradient descent.png" style="width:60.0%"
+alt="image" /></span></p>
+<figcaption>Ilustrasi <em>gradient descent</em> pada fungsi satu
+peubah.</figcaption>
+</figure>
+<p><a href="#fig:gd" data-reference-type="ref"
+data-reference="fig:gd">2.7</a> menunjukkan bagaimana metode
+<em>gradient descent</em> memperbarui parameter model untuk meminimumkan
+fungsi <em>loss</em> secara iteratif dengan bergerak ke arah negatif
+dari gradien fungsi <em>loss</em>, yang menunjukkan arah tercepat
+penurunan nilai fungsi.
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold-italic">𝜽</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi mathvariant="bold-italic">𝜽</mi><mi>t</mi></msub><mo>−</mo><mi>η</mi><mi>∇</mi><mi mathvariant="script">ℒ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝜽</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:2.13}
+            \bm{\theta}_{t+1} = \bm{\theta}_t - \eta \nabla \mathcal{L}(\bm{\theta}).
+\end{equation}</annotation></semantics></math> Misalkan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∇</mi><mi mathvariant="script">ℒ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝜽</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\nabla \mathcal{L}(\bm{\theta})</annotation></semantics></math>
+menyatakan gradien dari fungsi <em>loss</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℒ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝜽</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{L}(\bm{\theta})</annotation></semantics></math>
+terhadap parameter model
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝜽</mi><annotation encoding="application/x-tex">\bm{\theta}</annotation></semantics></math>.
+Algoritma <em>gradient descent</em> memperbarui parameter model dengan
+menggunakan aturan pembaruan yang diberikan oleh Persamaan (<a
+href="#eq:2.13" data-reference-type="ref"
+data-reference="eq:2.13">[eq:2.13]</a>), dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>
+merupakan laju pembelajaran atau ukuran langkah yang menyatakan besaran
+perubahan pada pembaruan parameter model.</p>
+<h3 id="sec:adam"><em>Adaptive Moment Estimation</em> (Adam)</h3>
+<p>Metode <em>Adaptive Moment Estimation</em> (Adam) merupakan salah
+satu algoritma optimisasi paling populer dalam pembelajaran mesin,
+terutama dalam pembelajaran mendalam. Adam dikembangkan sebagai
+perbaikan dari metode <em>stochastic gradient descent</em> (SGD) dan
+RMSProp dengan menggabungkan keunggulan dari dua teknik utama, yaitu
+momentum dan laju pembelajaran adaptif.</p>
+<p>Momentum merupakan teknik yang digunakan pada metode optimisasi untuk
+mempercepat konvergensi dengan memuluskan arah optimasi agar tidak
+terjebak di mininum lokal dan mengurangi osilasi pada pembelajaran. Laju
+pembelajaran adaptif merupakan teknik untuk menyesuaikan laju
+pembelajaran secara otomatis berdasarkan variansi dari gradien sehingga
+pembelajaran lebih stabil dan menghindari pemilihan laju yang
+berlebihan.</p>
+<p>Metode Adam melakukan pembaruan pada dua variabel, yaitu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold-italic">𝒎</mi><mi>t</mi></msub><mo>,</mo><msub><mi mathvariant="bold-italic">𝒗</mi><mi>t</mi></msub><mo>∈</mo><msup><mi mathvariant="double-struck">ℝ</mi><mrow><mn>1</mn><mo>×</mo><msub><mi>n</mi><mtext mathvariant="normal">params</mtext></msub></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{m}_t, \mathbf{v}_t \in \mathbb{R}^{1 \times n_\text{params}}</annotation></semantics></math>
+sebagai momen pertama untuk momentum dan momen kedua untuk laju
+pembelajaran adaptif pada langkah
+ke-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>
+secara berturutan. Adam menggunakan rataan bergerak eksponensial untuk
+mengestimasi momen pertama dan kedua, yang dinyatakan sebagai
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi mathvariant="bold-italic">𝒎</mi><mi>t</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msub><mi>β</mi><mn>1</mn></msub><msub><mi mathvariant="bold-italic">𝒎</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>β</mi><mn>1</mn></msub><mo stretchy="false" form="postfix">)</mo><mi>∇</mi><mi mathvariant="script">ℒ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝜽</mi><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi mathvariant="bold-italic">𝒗</mi><mi mathvariant="bold-italic">𝒕</mi></msub></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msub><mi>β</mi><mn>2</mn></msub><msub><mi mathvariant="bold-italic">𝒗</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>β</mi><mn>2</mn></msub><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>∇</mi><mi mathvariant="script">ℒ</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="bold-italic">𝜽</mi><mo stretchy="false" form="postfix">)</mo><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+        \begin{split}
+            \mathbf{m}_t &amp;= \beta_1 \mathbf{m}_{t-1} + (1-\beta_1) \nabla \mathcal{L}(\bm{\theta}) \\
+            \mathbf{v_t} &amp;= \beta_2 \mathbf{v}_{t-1} + (1-\beta_2) (\nabla \mathcal{L}(\bm{\theta}))^2.
+        \end{split}
+\end{equation}</annotation></semantics></math> Umumnya, digunakan
+inisialisasi awal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mn>0</mn></msub><mo>=</mo><msub><mi>v</mi><mn>0</mn></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">m_0 = v_0 = 0</annotation></semantics></math>.
+Akibatnya, estimasi dengan rataan bergerak eksponesial dapat bias pada
+iterasi awal. Untuk mengatasi hal ini, dilakukan normalisasi momen
+pertama dan kedua seperti pada Persamaan (<a href="#eq:2.15"
+data-reference-type="ref" data-reference="eq:2.15">[eq:2.15]</a>).
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi mathvariant="bold-italic">𝒎</mi><mo accent="true">̂</mo></mover><mi>t</mi></msub><mo>=</mo><mstyle displaystyle="true"><mfrac><msub><mi mathvariant="bold-italic">𝒎</mi><mi>t</mi></msub><mrow><mn>1</mn><mo>−</mo><msubsup><mi>β</mi><mn>1</mn><mi>t</mi></msubsup></mrow></mfrac></mstyle><mspace width="1.0em"></mspace><mtext mathvariant="normal">dan</mtext><mspace width="1.0em"></mspace><msub><mover><mi mathvariant="bold-italic">𝒗</mi><mo accent="true">̂</mo></mover><mi>t</mi></msub><mo>=</mo><mstyle displaystyle="true"><mfrac><msub><mi mathvariant="bold-italic">𝒗</mi><mi>t</mi></msub><mrow><mn>1</mn><mo>−</mo><msubsup><mi>β</mi><mn>2</mn><mi>t</mi></msubsup></mrow></mfrac></mstyle><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:2.15}
+            \mathbf{\hat{m}}_t = \dfrac{\mathbf{m}_t}{1 - \beta_1^t} \quad \text{dan} \quad \mathbf{\hat{v}}_t = \dfrac{\mathbf{v}_t}{1 - \beta_2^t}.
+\end{equation}</annotation></semantics></math> Selanjutnya,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi mathvariant="bold-italic">𝒎</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\mathbf{\hat{m}}</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi mathvariant="bold-italic">𝒗</mi><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\mathbf{\hat{v}}</annotation></semantics></math>
+digunakan untuk memperbarui parameter model dengan aturan pembaruan
+sebagai
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold-italic">𝜽</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi mathvariant="bold-italic">𝜽</mi><mi>t</mi></msub><mo>−</mo><mi>η</mi><mstyle displaystyle="true"><mfrac><msub><mover><mi mathvariant="bold-italic">𝒎</mi><mo accent="true">̂</mo></mover><mi>t</mi></msub><mrow><msqrt><msub><mover><mi mathvariant="bold-italic">𝒗</mi><mo accent="true">̂</mo></mover><mi>t</mi></msub></msqrt><mo>+</mo><mi>ε</mi></mrow></mfrac></mstyle><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+            \bm{\theta}_{t+1} = \bm{\theta}_t - \eta \dfrac{\mathbf{\hat{m}}_t}{\sqrt{\mathbf{\hat{v}}_t} + \varepsilon},
+\end{equation}</annotation></semantics></math> dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>
+merupakan konstanta pemulus yang dipilih mendekati nol untuk menghindari
+pembagian dengan nol.</p>
+<h1 id="sistem-rekomendasi-rancangan">Sistem Rekomendasi Rancangan</h1>
+<h2 id="formulasi-masalah">Formulasi Masalah</h2>
+<p>Diberikan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>
+berturut-turut menyatakan himpunan <em>user</em> dan <em>item</em> pada
+sistem. Definisikan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝒔</mi><mi>u</mi></msup><annotation encoding="application/x-tex">\mathbf{s}^u</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝒕</mi><mi>u</mi></msup><annotation encoding="application/x-tex">\mathbf{t}^u</annotation></semantics></math>
+sebagai barisan interaksi dan barisan waktu dari <em>user</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>.
+Perhatikan bahwa untuk setiap <em>user</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>∈</mo><mi>U</mi></mrow><annotation encoding="application/x-tex">u \in U</annotation></semantics></math>,
+panjang barisan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝒔</mi><mi>u</mi></msup><annotation encoding="application/x-tex">\mathbf{s}^u</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝒕</mi><mi>u</mi></msup><annotation encoding="application/x-tex">\mathbf{t}^u</annotation></semantics></math>
+dapat berbeda-beda sehingga menyebabkan panjang fitur pembelajaran tidak
+konsisten. Oleh karena itu, akan dilakukan teknik <em>padding</em> untuk
+menyamakan panjang vektor dengan mengisi ataupun memotong elemen
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝒔</mi><mi>u</mi></msup><annotation encoding="application/x-tex">\mathbf{s}^u</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝒕</mi><mi>u</mi></msup><annotation encoding="application/x-tex">\mathbf{t}^u</annotation></semantics></math>
+seperti pada <a href="#fig:padding" data-reference-type="ref"
+data-reference="fig:padding">3.1</a>.</p>
+<figure id="fig:padding" data-latex-placement="H">
+<p><span><img src="./Figure/padding.png" style="width:75.0%"
+alt="image" /></span></p>
+<figcaption>Ilustrasi teknik <em>padding</em>.</figcaption>
+</figure>
+<p>Pandang
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><annotation encoding="application/x-tex">\tilde{\mathbf{s}}^u</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi mathvariant="bold-italic">𝒕</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><annotation encoding="application/x-tex">\tilde{\mathbf{t}}^u</annotation></semantics></math>
+sebagai barisan interaksi dan barisan waktu dengan panjang yang sama
+untuk setiap <em>user</em>, yaitu sepanjang
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
+Akibatnya, untuk setiap
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>∈</mo><mi>U</mi></mrow><annotation encoding="application/x-tex">u \in U</annotation></semantics></math>
+terdapat
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mn>1</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mn>2</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>n</mi><mi>u</mi></msubsup></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo>,</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msup><mover><mi mathvariant="bold-italic">𝒕</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>t</mi><mo accent="true">̃</mo></mover><mn>1</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>t</mi><mo accent="true">̃</mo></mover><mn>2</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>t</mi><mo accent="true">̃</mo></mover><mi>n</mi><mi>u</mi></msubsup></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo>,</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+\begin{split}
+    \tilde{\mathbf{s}}^u &amp;= \begin{bmatrix}
+        \tilde{s}^u_1 &amp;
+        \tilde{s}^u_2 &amp;
+        \cdots &amp;
+        \tilde{s}^u_n
+    \end{bmatrix}, \\
+    \tilde{\mathbf{t}}^u &amp;= \begin{bmatrix}
+        \tilde{t}^u_1 &amp;
+        \tilde{t}^u_2 &amp;
+        \cdots &amp;
+        \tilde{t}^u_n 
+    \end{bmatrix},
+\end{split}
+\end{equation}</annotation></semantics></math> dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><mo>∈</mo><mi>I</mi><mspace width="0.278em"></mspace><mo>∪</mo><mspace width="0.278em"></mspace><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\tilde{s}^u_i \in I \;\cup\; \{0\}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mover><mi>t</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><mo>∈</mo><mi mathvariant="double-struck">ℕ</mi><mspace width="0.278em"></mspace><mo>∪</mo><mspace width="0.278em"></mspace><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\tilde{t}^u_i \in \mathbb{N} \;\cup\; \{0\}</annotation></semantics></math>,
+di mana
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}^u_i</annotation></semantics></math>
+terjadi bersesuaian dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>t</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{t}^u_i</annotation></semantics></math>.</p>
+<p>Selanjutnya, digunakan pendekatan pembelajaran mesin untuk memodelkan
+sistem rekomendasi sekuensial berdasarkan barisan interaksi historis.
+Model sistem rekomendasi menerima masukan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>,</mo><mspace width="0.167em"></mspace><msup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">u,\, \tilde{\mathbf{s}}^u,</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi mathvariant="bold-italic">𝒕</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><annotation encoding="application/x-tex">\tilde{\mathbf{t}}^u</annotation></semantics></math>
+untuk memberikan rekomendasi yang relevan terhadap <em>user</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>.
+Model ini menggunakan pemrosesan <em>self-attention</em> dan atensi pola
+temporal untuk menyertakan <em>temporal dynamics</em>.</p>
+<h2 id="embedding"><em>Embedding</em></h2>
+<p>Algoritma pembelajaran mesin hanya dapat memproses data numerik. Oleh
+karena itu, dalam memodelkan data nonnumerik seperti data ordinal, teks,
+dan kategori, dibutuhkan teknik untuk merepresentasikan data ke dalam
+bentuk numerik. <em>Embedding</em> merupakan salah satu teknik untuk
+merepresentasikan data ke dalam bentuk vektor laten. Representasi
+<em>Embedding</em> memungkinkan model untuk menangkap hubungan semantik
+atau struktur tersembunyi dari data.</p>
+<p>Konstruksi <em>embedding lookup</em> <em>item</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold-italic">𝑴</mi><mi>I</mi></msup><mo>∈</mo><msup><mi mathvariant="double-struck">ℝ</mi><mrow><mo stretchy="false" form="prefix">|</mo><mi>I</mi><mo stretchy="false" form="prefix">|</mo><mi>×</mi><mi>d</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{M}^I \in \mathbb{R}^{|I| \times d}</annotation></semantics></math>,
+yang setiap barisnya menyatakan <em>embedding</em> <em>item</em> yang
+mungkin dari
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mi>I</mi></mrow><annotation encoding="application/x-tex">i \in I</annotation></semantics></math>.
+Representasi <em>embedding</em> <em>item</em> dari barisan interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><annotation encoding="application/x-tex">\tilde{\mathbf{s}}^u</annotation></semantics></math>
+dilakukan dengan augmentasi matriks <em>embedding</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi mathvariant="bold-italic">𝑬</mi><mi>I</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\mathbf{E}^u_I</annotation></semantics></math>,
+di mana baris
+ke-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+dari
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi mathvariant="bold-italic">𝑬</mi><mi>I</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\mathbf{E}^u_I</annotation></semantics></math>
+menyatakan <em>embedding</em> dari <em>item</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}_i^u</annotation></semantics></math>,
+yaitu
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi mathvariant="bold-italic">𝑬</mi><mi>I</mi><mi>u</mi></msubsup><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi mathvariant="bold-italic">𝒎</mi><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mn>1</mn><mi>u</mi></msubsup></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi mathvariant="bold-italic">𝒎</mi><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mn>2</mn><mi>u</mi></msubsup></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>⋮</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi mathvariant="bold-italic">𝒎</mi><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>n</mi><mi>u</mi></msubsup></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \mathbf{E}^u_I = \begin{bmatrix}
+        \mathbf{m}_{\tilde{s}_1^u} \\
+        \mathbf{m}_{\tilde{s}_2^u} \\
+        \vdots \\
+        \mathbf{m}_{\tilde{s}_n^u}
+    \end{bmatrix}.
+\end{equation}</annotation></semantics></math></p>
+<p>Mengikuti <span class="citation" data-cites="tisasrec"></span>, agar
+interaksi semu atas <em>padding</em> tidak mempengaruhi proses
+pembelajaran, maka digunakan vektor nol
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mn>0</mn><mo accent="true">→</mo></mover><annotation encoding="application/x-tex">\vec{0}</annotation></semantics></math>
+sebagai representasi <em>embedding</em> dari interaksi semu atas
+<em>padding</em>.</p>
+<p>Namun, representasi <em>embedding</em> dari <em>item</em> saja belum
+cukup dalam pemrosesan sekuensial. Dalam konteks model sekuensial,
+urutan atau posisi dari <em>item</em> juga mempengaruhi konteks pada
+barisan. Teknik pemrosesan sekuensial seperti mekanisme atensi
+menggunakan teknik <em>positional encoding</em> untuk memasukkan
+informasi posisi ke dalam representasi <em>embedding</em> <span
+class="citation" data-cites="attention"></span>.</p>
+<p>Representasi <em>embedding</em> untuk posisi dilakukan dengan
+mengonstruksi matriks <em>embedding</em> posisi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold-italic">𝑬</mi><mi>P</mi></msub><mo>∈</mo><msup><mi mathvariant="double-struck">ℝ</mi><mrow><mi>n</mi><mo>×</mo><mi>d</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{E}_P \in \mathbb{R}^{n \times d}</annotation></semantics></math>,
+di mana baris
+ke-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+mewakili <em>embedding</em> indeks posisi
+ke-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+dalam urutan, yang diberikan oleh Persamaan (<a href="#eq:3.3"
+data-reference-type="ref" data-reference="eq:3.3">[eq:3.3]</a>).
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold-italic">𝑬</mi><mi>P</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi mathvariant="bold-italic">𝒑</mi><mn>1</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi mathvariant="bold-italic">𝒑</mi><mn>2</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>⋮</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi mathvariant="bold-italic">𝒑</mi><mi>n</mi></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:3.3}
+    \mathbf{E}_P = \begin{bmatrix}
+        \mathbf{p}_{1} \\
+        \mathbf{p}_{2} \\
+        \vdots \\
+        \mathbf{p}_{n} \\
+    \end{bmatrix}.
+\end{equation}</annotation></semantics></math> Matriks
+<em>embedding</em> posisi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="bold-italic">𝑬</mi><mi>P</mi></msub><annotation encoding="application/x-tex">\mathbf{E}_P</annotation></semantics></math>
+kemudian dijumlahkan dengan matriks <em>embedding item</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi mathvariant="bold-italic">𝑬</mi><mi>I</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\mathbf{E}^u_I</annotation></semantics></math>,
+sehingga matriks <em>embedding</em> yang digunakan menjadi
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold-italic">𝑬</mi><mi>u</mi></msup><mo>=</mo><msubsup><mi mathvariant="bold-italic">𝑬</mi><mi>I</mi><mi>u</mi></msubsup><mo>+</mo><msub><mi mathvariant="bold-italic">𝑬</mi><mi>P</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \mathbf{E}^u = \mathbf{E}^u_I + \mathbf{E}_P.
+\end{equation}</annotation></semantics></math> Pendekatan ini
+memungkinkan model untuk membedakan antara dua interaksi yang sama
+tetapi muncul pada posisi yang berbeda dalam urutan sehingga model dapat
+mempelajari konteks posisi barisan interaksi.</p>
+<h2 id="teknik-time-aware">Teknik <em>Time-Aware</em></h2>
+<p>Dalam sistem rekomendasi sekuensial, waktu memiliki peran penting
+karena interaksi <em>user-item</em> juga dipengaruhi oleh kecenderungan
+perubahan perilaku <em>user</em> terhadap waktu. Sebagai contoh, dua
+interaksi yang berdekatan secara waktu cenderung lebih terkait
+dibandingkan yang berjauhan. Teknik untuk menyertakan informasi waktu
+dalam pembelajaran model disebut dengan <em>time-aware</em>.</p>
+<p>Pada model ini, digunakan rentang waktu antar interaksi sebagai
+faktor perubahan perilaku terhadap waktu (<em>temporal dynamics</em>).
+Misalkan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>r</mi><mrow><mi>i</mi><mi>j</mi></mrow><mi>u</mi></msubsup><mo>=</mo><mo stretchy="false" form="prefix">|</mo><msubsup><mover><mi>t</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><mo>−</mo><msubsup><mover><mi>t</mi><mo accent="true">̃</mo></mover><mi>j</mi><mi>u</mi></msubsup><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">r_{ij}^u = |\tilde{t}_i^u - \tilde{t}_j^u|</annotation></semantics></math>
+merupakan rentang waktu interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+terhadap
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>r</mi><mtext mathvariant="normal">min</mtext><mi>u</mi></msubsup><mo>=</mo><mtext mathvariant="normal">min</mtext><mo stretchy="false" form="prefix">{</mo><msubsup><mi>r</mi><mrow><mi>i</mi><mi>j</mi></mrow><mi>u</mi></msubsup><mspace width="0.278em"></mspace><mo stretchy="false" form="postfix">|</mo><mspace width="0.278em"></mspace><mn>1</mn><mo>≤</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo>≤</mo><mi>n</mi><mo>,</mo><mi>i</mi><mo>≠</mo><mi>j</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">r^u_\text{min} = \text{min}\{r_{ij}^u \;\rvert\; 1 \leq i,j \leq n, i \neq j\}</annotation></semantics></math>
+merupakan rentang waktu terkecil, dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌊</mo><mi>x</mi><mo stretchy="false" form="postfix">⌋</mo></mrow><annotation encoding="application/x-tex">\lfloor x\rfloor</annotation></semantics></math>
+merupakan bilangan bulat terbesar yang lebih kecil dari
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>.
+Matriks relasi rentang waktu dinyatakan sebagai
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold-italic">𝑹</mi><mi>u</mi></msup><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>r</mi><mo accent="true">̃</mo></mover><mn>11</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>r</mi><mo accent="true">̃</mo></mover><mn>12</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>r</mi><mo accent="true">̃</mo></mover><mrow><mn>1</mn><mi>n</mi></mrow><mi>u</mi></msubsup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>r</mi><mo accent="true">̃</mo></mover><mn>21</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>r</mi><mo accent="true">̃</mo></mover><mn>22</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>r</mi><mo accent="true">̃</mo></mover><mrow><mn>2</mn><mi>n</mi></mrow><mi>u</mi></msubsup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><mo>⋱</mo></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>r</mi><mo accent="true">̃</mo></mover><mrow><mi>n</mi><mn>1</mn></mrow><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>r</mi><mo accent="true">̃</mo></mover><mrow><mi>n</mi><mn>2</mn></mrow><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi>r</mi><mo accent="true">̃</mo></mover><mrow><mi>n</mi><mi>n</mi></mrow><mi>u</mi></msubsup></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="1.0em"></mspace><mo>,</mo><mspace width="0.278em"></mspace><mtext mathvariant="normal">dengan</mtext><mspace width="1.0em"></mspace><msubsup><mover><mi>r</mi><mo accent="true">̃</mo></mover><mrow><mi>i</mi><mi>j</mi></mrow><mi>u</mi></msubsup><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌊</mo><mstyle displaystyle="true"><mfrac><msubsup><mi>r</mi><mrow><mi>i</mi><mi>j</mi></mrow><mi>u</mi></msubsup><msubsup><mi>r</mi><mtext mathvariant="normal">min</mtext><mi>u</mi></msubsup></mfrac></mstyle><mo stretchy="true" form="postfix">⌋</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \mathbf{R}^u = \begin{bmatrix}
+        \tilde{r}_{11}^u &amp; \tilde{r}_{12}^u &amp; \cdots &amp; \tilde{r}_{1n}^u \\
+        \tilde{r}_{21}^u &amp; \tilde{r}_{22}^u &amp; \cdots &amp; \tilde{r}_{2n}^u \\
+        \cdots &amp; \cdots &amp; \ddots &amp; \cdots \\
+        \tilde{r}_{n1}^u &amp; \tilde{r}_{n2}^u &amp; \cdots &amp; \tilde{r}_{nn}^u 
+    \end{bmatrix}
+    \quad , \;\text{dengan} \quad
+    \tilde{r}_{ij}^u = \left\lfloor \dfrac{r_{ij}^u}{r^u_\text{min}} \right\rfloor.
+\end{equation}</annotation></semantics></math></p>
+<p>Representasi <em>embedding</em> rentang waktu terhadap interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}_i^u</annotation></semantics></math>
+dilakukan dengan mengkonstruksi <em>embedding lookup</em> rentang waktu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝑴</mi><mi>R</mi></msup><annotation encoding="application/x-tex">\mathbf{M}^R</annotation></semantics></math>
+yang setiap barisnya menyatakan <em>embedding</em> rentang waktu yang
+mungkin dari setiap entri di
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝑹</mi><mi>u</mi></msup><annotation encoding="application/x-tex">\mathbf{R}^u</annotation></semantics></math>.
+Selanjutnya, dilakukan augmentasi matriks <em>embedding</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi mathvariant="bold-italic">𝑬</mi><msub><mi>R</mi><mi>i</mi></msub><mi>u</mi></msubsup><annotation encoding="application/x-tex">\mathbf{E}^u_{R_i}</annotation></semantics></math>,
+di mana baris
+ke-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
+dari
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi mathvariant="bold-italic">𝑬</mi><msub><mi>R</mi><mi>i</mi></msub><mi>u</mi></msubsup><annotation encoding="application/x-tex">\mathbf{E}^u_{R_i}</annotation></semantics></math>
+menyatakan <em>embedding</em> rentang waktu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>r</mi><mo accent="true">̃</mo></mover><mrow><mi>i</mi><mi>j</mi></mrow><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{r}_{ij}^u</annotation></semantics></math>,
+yaitu
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi mathvariant="bold-italic">𝑬</mi><msub><mi>R</mi><mi>i</mi></msub><mi>u</mi></msubsup><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi mathvariant="bold-italic">𝒓</mi><mrow><mi>i</mi><mn>1</mn></mrow><mi>u</mi></msubsup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi mathvariant="bold-italic">𝒓</mi><mrow><mi>i</mi><mn>2</mn></mrow><mi>u</mi></msubsup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>⋮</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi mathvariant="bold-italic">𝒓</mi><mrow><mi>i</mi><mi>n</mi></mrow><mi>u</mi></msubsup></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \mathbf{E}^u_{R_i} = \begin{bmatrix}
+        \mathbf{r}_{i1}^u \\
+        \mathbf{r}_{i2}^u \\
+        \vdots \\
+        \mathbf{r}_{in}^u
+    \end{bmatrix}.
+\end{equation}</annotation></semantics></math> Untuk menyertakan
+<em>temporal dynamics</em> dalam model, matriks <em>embedding</em> dari
+<em>item</em>, posisi, dan rentang waktu dijumlahkan secara bersesuaian
+terhadap interaksi
+ke-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+sebagai matriks representasi <em>embedding</em> akhir untuk
+<em>user</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>
+terhadap
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}^u_i</annotation></semantics></math>
+yang diberikan oleh Persamaan (<a href="#eq:3.7"
+data-reference-type="ref" data-reference="eq:3.7">[eq:3.7]</a>)
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold-italic">𝑬</mi><mrow><mi>u</mi><mo>,</mo><mi>i</mi></mrow></msup><mo>=</mo><msubsup><mi mathvariant="bold-italic">𝑬</mi><mi>I</mi><mi>u</mi></msubsup><mo>+</mo><msub><mi mathvariant="bold-italic">𝑬</mi><mi>P</mi></msub><mo>+</mo><msubsup><mi mathvariant="bold-italic">𝑬</mi><msub><mi>R</mi><mi>i</mi></msub><mi>u</mi></msubsup><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:3.7}
+    \mathbf{E}^{u, i} = \mathbf{E}^u_{I} + \mathbf{E}_P + \mathbf{E}^u_{R_i}.
+\end{equation}</annotation></semantics></math></p>
+<h2 id="self-attention"><em>Self-Attention</em></h2>
+<p>Mekanisme <em>self-attention</em> merupakan salah satu teknik
+pemrosesan sekuensial untuk memodelkan barisan interaksi dan
+memungkinkan model untuk memperhatikan konteks interaksi terhadap setiap
+interaksi dalam barisan itu sendiri. Pada model sistem rekomendasi ini,
+<em>self-attention</em> digunakan untuk memproses representasi
+<em>embedding</em> dari barisan interaksi, mencakup <em>embedding
+item</em>, posisi, dan rentang waktu.</p>
+<p>Mengikuti teknik pemrosesan pada Bab <a href="#sec:qkv"
+data-reference-type="ref" data-reference="sec:qkv">2.2.1</a>, matriks
+bobot untuk <em>queries</em>, <em>keys</em>, dan <em>values</em>, yaitu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>,</mo><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{W}^{(Q)}, \mathbf{W}^{(K)}</annotation></semantics></math>,
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>V</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><annotation encoding="application/x-tex">\mathbf{W}^{(V)}</annotation></semantics></math>
+diinisialisasi sebagai parameter pembelajaran model. Untuk menyertakan
+posisi dan rentang waktu, dilakukan modifikasi <em>keys</em> dan
+<em>values</em> menggunakan matriks <em>embedding</em> terpisah untuk
+<em>keys</em> dan <em>values</em>;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold-italic">𝑬</mi><mrow><mi>P</mi><mo>,</mo><mi>K</mi></mrow></msub><mo>,</mo><msub><mi mathvariant="bold-italic">𝑬</mi><mrow><mi>P</mi><mo>,</mo><mi>V</mi></mrow></msub><mo>,</mo><msubsup><mi mathvariant="bold-italic">𝑬</mi><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>,</mo><mi>K</mi></mrow><mi>u</mi></msubsup><mo>,</mo><msubsup><mi mathvariant="bold-italic">𝑬</mi><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>,</mo><mi>V</mi></mrow><mi>u</mi></msubsup></mrow><annotation encoding="application/x-tex">\mathbf{E}_{P, K}, \mathbf{E}_{P, V}, \mathbf{E}^u_{{R_i}, K}, \mathbf{E}^u_{R_i, V}</annotation></semantics></math>,
+sedangkan <em>queries</em> tidak dimodifikasi.
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msup><mi mathvariant="bold-italic">𝑸</mi><mi>u</mi></msup><mspace width="0.278em"></mspace></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msubsup><mi mathvariant="bold-italic">𝑬</mi><mi>I</mi><mi>u</mi></msubsup><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msup><mi mathvariant="bold-italic">𝑲</mi><mrow><mi>u</mi><mo>,</mo><mi>i</mi></mrow></msup></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msubsup><mi mathvariant="bold-italic">𝑬</mi><mi>I</mi><mi>u</mi></msubsup><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>K</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>+</mo><msub><mi mathvariant="bold-italic">𝑬</mi><mrow><mi>P</mi><mo>,</mo><mi>K</mi></mrow></msub><mo>+</mo><msubsup><mi mathvariant="bold-italic">𝑬</mi><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>,</mo><mi>K</mi></mrow><mi>u</mi></msubsup></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msup><mi mathvariant="bold-italic">𝑽</mi><mrow><mi>u</mi><mo>,</mo><mi>i</mi></mrow></msup></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><msubsup><mi mathvariant="bold-italic">𝑬</mi><mi>I</mi><mi>u</mi></msubsup><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>V</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>+</mo><msub><mi mathvariant="bold-italic">𝑬</mi><mrow><mi>P</mi><mo>,</mo><mi>V</mi></mrow></msub><mo>+</mo><msubsup><mi mathvariant="bold-italic">𝑬</mi><mrow><msub><mi>R</mi><mi>i</mi></msub><mo>,</mo><mi>V</mi></mrow><mi>u</mi></msubsup><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:3.8}
+\begin{split}
+    \mathbf{Q}^u \;&amp;= \mathbf{E}^u_I \mathbf{W}^{(Q)} \\
+    \mathbf{K}^{u, i} &amp;= \mathbf{E}^u_I \mathbf{W}^{(K)} + \mathbf{E}_{P,K} + \mathbf{E}^u_{R_i,K} \\
+    \mathbf{V}^{u,i} &amp;= \mathbf{E}^u_I \mathbf{W}^{(V)} + \mathbf{E}_{P,V} + \mathbf{E}^u_{R_i,V}.
+\end{split}
+\end{equation}</annotation></semantics></math></p>
+<p>Matriks <em>queries, keys, values</em> diberikan oleh Persamaan (<a
+href="#eq:3.8" data-reference-type="ref"
+data-reference="eq:3.8">[eq:3.8]</a>), dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝑲</mi><mrow><mi>u</mi><mo>,</mo><mi>i</mi></mrow></msup><annotation encoding="application/x-tex">\mathbf{K}^{u, i}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝑽</mi><mrow><mi>u</mi><mo>,</mo><mi>i</mi></mrow></msup><annotation encoding="application/x-tex">\mathbf{V}^{u, i}</annotation></semantics></math>
+menyatakan matriks <em>keys</em> dan <em>values</em> terhadap interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}_i^u</annotation></semantics></math>.</p>
+<p>Selanjutnya, akan diterapkan proses atensi <em>multi-head</em> dengan
+fungsi skoring <em>scaled dot-product</em> mengikuti Bab <a
+href="#sec:sdp" data-reference-type="ref"
+data-reference="sec:sdp">2.2.2</a> dan Bab <a href="#sec:mha"
+data-reference-type="ref" data-reference="sec:mha">2.2.3</a>. Namun,
+karena
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝑲</mi><mrow><mi>u</mi><mo>,</mo><mi>i</mi></mrow></msup><annotation encoding="application/x-tex">\mathbf{K}^{u,i}</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝑽</mi><mrow><mi>u</mi><mo>,</mo><mi>i</mi></mrow></msup><annotation encoding="application/x-tex">\mathbf{V}^{u,i}</annotation></semantics></math>
+berbeda-beda untuk setiap interaksi, maka didefinisikan fungsi skoring
+untuk interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}_i^u</annotation></semantics></math>
+terhadap interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>j</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}_j^u</annotation></semantics></math>
+yang diberikan oleh Persamaan (<a href="#eq:3.9"
+data-reference-type="ref" data-reference="eq:3.9">[eq:3.9]</a>)
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>α</mi><mrow><mi>i</mi><mi>j</mi></mrow><mi>u</mi></msubsup><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><msubsup><mi mathvariant="bold-italic">𝒒</mi><mi>i</mi><mi>u</mi></msubsup><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><msubsup><mi mathvariant="bold-italic">𝒌</mi><mi>j</mi><mrow><mi>u</mi><mo>,</mo><mi>i</mi></mrow></msubsup><msup><mo stretchy="false" form="postfix">)</mo><mo>⊺</mo></msup></mrow><msqrt><mi>d</mi></msqrt></mfrac></mstyle><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:3.9}
+    \alpha_{ij}^u = \dfrac{\mathbf{q}_i^u \,(\mathbf{k}^{u,i}_j)^\intercal}{\sqrt{d}}.
+\end{equation}</annotation></semantics></math> Definisikan matriks bobot
+atensi untuk <em>user</em> u, yaitu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝑨</mi><mi>u</mi></msup><annotation encoding="application/x-tex">\mathbf{A}^u</annotation></semantics></math>
+sebagai
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold-italic">𝑨</mi><mi>u</mi></msup><mo>=</mo><mtext mathvariant="normal">softmax</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi>α</mi><mn>11</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mi>α</mi><mn>12</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mi>α</mi><mrow><mn>1</mn><mi>n</mi></mrow><mi>u</mi></msubsup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi>α</mi><mn>21</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mi>α</mi><mn>22</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mi>α</mi><mrow><mn>2</mn><mi>n</mi></mrow><mi>u</mi></msubsup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><mo>⋱</mo></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi>α</mi><mrow><mi>n</mi><mn>1</mn></mrow><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mi>α</mi><mrow><mi>n</mi><mn>2</mn></mrow><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mi>α</mi><mrow><mi>n</mi><mi>n</mi></mrow><mi>u</mi></msubsup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \mathbf{A}^u = \text{softmax}\left(\begin{bmatrix}
+        \alpha_{11}^u &amp; \alpha_{12}^u &amp; \cdots &amp; \alpha_{1n}^u \\
+        \alpha_{21}^u &amp; \alpha_{22}^u &amp; \cdots &amp; \alpha_{2n}^u \\
+        \cdots &amp; \cdots &amp; \ddots &amp; \cdots \\
+        \alpha_{n1}^u &amp; \alpha_{n2}^u &amp; \cdots &amp; \alpha_{nn}^u \\
+    \end{bmatrix}\right),
+\end{equation}</annotation></semantics></math> sehingga keluaran dari
+proses atensi untuk setiap interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}_i^u</annotation></semantics></math>
+dapat ditulis sebagai
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi mathvariant="bold-italic">𝒛</mi><mi>i</mi><mi>u</mi></msubsup><mo>=</mo><msubsup><mi mathvariant="bold-italic">𝒂</mi><mi>i</mi><mi>u</mi></msubsup><msup><mi mathvariant="bold-italic">𝑽</mi><mrow><mi>u</mi><mo>,</mo><mi>i</mi></mrow></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \mathbf{z}^u_i = \mathbf{a}^u_i\mathbf{V}^{u,i},
+\end{equation}</annotation></semantics></math> Dilakukan proses atensi
+<em>multi-head</em> dengan menggabungkan setiap
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi mathvariant="bold-italic">𝒛</mi><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\mathbf{z}^u_i</annotation></semantics></math>
+dari <em>head</em> berbeda terhadap kolom dan menerapkan pemetaan linear
+seperti pada Persamaan (<a href="#eq:2.10" data-reference-type="ref"
+data-reference="eq:2.10">[eq:2.10]</a>). Diperoleh vektor atensi akhir
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi mathvariant="bold-italic">𝒚</mi><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\mathbf{y}^u_i</annotation></semantics></math>
+untuk setiap interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}_i^u</annotation></semantics></math>.</p>
+<h2 id="atensi-pola-temporal">Atensi Pola Temporal</h2>
+<p>Atensi pola temporal merupakan teknik yang memungkinkan model untuk
+memberi perhatian pada pola <em>time-invariant</em> sepanjang langkah
+barisan. Dalam konteks data sekuensial, pola temporal memiliki peran
+sebagai dependensi implisit yang tak bergantung waktu
+(<em>time-invariant</em>). Atensi pola temporal diharapkan dapat
+membobotkan perhatian dari setiap fitur <em>self-attention</em> untuk
+menangkap dependensi implisit dari <em>temporal dynamics</em> seperti
+pola periode interaksi.</p>
+<p>Pandang
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi mathvariant="bold-italic">𝒚</mi><mi>i</mi><mi>u</mi></msubsup><mo>∈</mo><msup><mi mathvariant="double-struck">ℝ</mi><mrow><mn>1</mn><mo>×</mo><mi>d</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{y}^u_i \in \mathbb{R}^{1\times d}</annotation></semantics></math>
+sebagai vektor atensi hasil proses <em>self-attention</em> untuk setiap
+interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}^u_i</annotation></semantics></math>.
+Pilih
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">w+1</annotation></semantics></math>
+langkah vektor atensi terakhir, atensi pola temporal dilakukan melalui
+suatu jaringan saraf konvolusional 1-dimensi dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+kernel untuk menangkap pola temporal setiap fitur dari
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi mathvariant="bold-italic">𝒚</mi><mrow><mi>n</mi><mo>−</mo><mi>w</mi></mrow><mi>u</mi></msubsup><mo>,</mo><msubsup><mi mathvariant="bold-italic">𝒚</mi><mrow><mi>n</mi><mo>−</mo><mi>w</mi><mo>+</mo><mn>1</mn></mrow><mi>u</mi></msubsup><mo>,</mo><mi>⋯</mi><mo>,</mo><msubsup><mi mathvariant="bold-italic">𝒚</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><mi>u</mi></msubsup></mrow><annotation encoding="application/x-tex">\mathbf{y}^u_{n-w}, \mathbf{y}^u_{n-w+1}, \cdots, \mathbf{y}^u_{n-1}</annotation></semantics></math>
+sepanjang langkahnya, yaitu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi mathvariant="bold-italic">𝒗</mi><mn>1</mn><mi>u</mi></msubsup><mo>,</mo><msubsup><mi mathvariant="bold-italic">𝒗</mi><mn>2</mn><mi>u</mi></msubsup><mo>,</mo><mi>⋯</mi><mo>,</mo><msubsup><mi mathvariant="bold-italic">𝒗</mi><mi>d</mi><mi>u</mi></msubsup><mo>∈</mo><msup><mi mathvariant="double-struck">ℝ</mi><mrow><mn>1</mn><mo>×</mo><mi>w</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{v}^u_1, \mathbf{v}^u_2, \cdots, \mathbf{v}^u_d \in \mathbb{R}^{1 \times w}</annotation></semantics></math>
+(lihat <a href="#fig:tpa" data-reference-type="ref"
+data-reference="fig:tpa">3.2</a>).</p>
+<figure id="fig:tpa" data-latex-placement="H">
+<p><span><img src="./Figure/tpa.png" style="width:100.0%"
+alt="image" /></span></p>
+<figcaption>Diagram atensi pola temporal untuk suatu
+<em>user</em>.</figcaption>
+</figure>
+<p>Hasil setiap konvolusi kemudian digunakan untuk membobotkan setiap
+fitur dari
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi mathvariant="bold-italic">𝒚</mi><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\mathbf{y}^u_i</annotation></semantics></math>
+untuk keseluruhan langkah, yaitu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi mathvariant="bold-italic">𝒙</mi><mn>1</mn><mi>u</mi></msubsup><mo>,</mo><msubsup><mi mathvariant="bold-italic">𝒙</mi><mn>2</mn><mi>u</mi></msubsup><mo>,</mo><mi>⋯</mi><mo>,</mo><msubsup><mi mathvariant="bold-italic">𝒙</mi><mi>d</mi><mi>u</mi></msubsup><mo>∈</mo><msup><mi mathvariant="double-struck">ℝ</mi><mrow><mn>1</mn><mo>×</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{x}^u_1, \mathbf{x}^u_2, \cdots, \mathbf{x}^u_d \in \mathbb{R}^{1 \times n}</annotation></semantics></math>
+melalui suatu fungsi skor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>
+yang dinyatakan oleh Persamaan (<a href="#eq:3.12"
+data-reference-type="ref" data-reference="eq:3.12">[eq:3.12]</a>).
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msubsup><mi mathvariant="bold-italic">𝑪</mi><mrow><mi>i</mi><mo>,</mo><mi>k</mi></mrow><mi>u</mi></msubsup></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>c</mi></munderover><msubsup><mi mathvariant="bold-italic">𝒘</mi><mi>j</mi><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>C</mi><mi>k</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mspace width="0.167em"></mspace><msubsup><mi mathvariant="bold-italic">𝒗</mi><mrow><mi>i</mi><mo>+</mo><mi>j</mi><mo>−</mo><mn>1</mn></mrow><mi>u</mi></msubsup></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msubsup><mover><mi mathvariant="bold-italic">𝒙</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><mo>=</mo><msubsup><mi>σ</mi><mi>i</mi><mi>u</mi></msubsup><mspace width="0.222em"></mspace><msubsup><mi mathvariant="bold-italic">𝒙</mi><mi>i</mi><mi>u</mi></msubsup><mo>,</mo><mspace width="0.278em"></mspace><mtext mathvariant="normal">dengan</mtext></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mspace width="0.278em"></mspace><msubsup><mi>σ</mi><mi>i</mi><mi>u</mi></msubsup><mo>=</mo><mtext mathvariant="normal">sigmoid</mtext><mo stretchy="false" form="prefix">(</mo><msubsup><mi mathvariant="bold-italic">𝒄</mi><mi>i</mi><mi>u</mi></msubsup><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>σ</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="prefix">(</mo><msubsup><mi mathvariant="bold-italic">𝒚</mi><mi>n</mi><mi>u</mi></msubsup><msup><mo stretchy="false" form="postfix">)</mo><mo>⊺</mo></msup><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:3.12}
+\begin{split}
+    \mathbf{C}_{i,k}^{u} &amp;= \sum_{j=1}^{c} \mathbf{w}_j^{(C_k)} \,\mathbf{v}^u_{i+j-1} \\
+    \tilde{\mathbf{x}}^u_i = \sigma^u_i \:\mathbf{x}^u_i, \; \text{dengan}&amp; \;
+    \sigma^u_i = \text{sigmoid}(\mathbf{c}^u_i \mathbf{W}^{(\sigma)} (\mathbf{y}^u_n)^\intercal).
+\end{split}
+\end{equation}</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">d</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>x</mi></mrow></msup></mrow></mfrac><mspace width="0.278em"></mspace><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:3.15}
+    \mathrm{sigmoid}(x) = \frac{1}{1+e^{-x}} \;.
+\end{equation}</annotation></semantics></math></p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
+merupakan ukuran kernel,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>C</mi><mi>k</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>,</mo><msup><mi mathvariant="bold-italic">𝑾</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>σ</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{W}^{(C_k)},\mathbf{W}^{(\sigma)}</annotation></semantics></math>
+merupakan matriks bobot konvolusi dan matriks bobot skoring. Fungsi
+sigmoid diberikan oleh Persamaan (<a href="#eq:3.15"
+data-reference-type="ref" data-reference="eq:3.15">[eq:3.15]</a>).
+Keluaran dari atensi pola temporal adalah matriks
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi mathvariant="bold-italic">𝒀</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><annotation encoding="application/x-tex">\tilde{\mathbf{Y}}^u</annotation></semantics></math>
+yang diperoleh dari augmentasi matriks dinyatakan sebagai
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mover><mi mathvariant="bold-italic">𝒀</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi mathvariant="bold-italic">𝒚</mi><mo accent="true">̃</mo></mover><mn>1</mn><mi>u</mi></msubsup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>⋮</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi mathvariant="bold-italic">𝒚</mi><mo accent="true">̃</mo></mover><mi>n</mi><mi>u</mi></msubsup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi mathvariant="bold-italic">𝒙</mi><mo accent="true">̃</mo></mover><mn>1</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi mathvariant="bold-italic">𝒙</mi><mo accent="true">̃</mo></mover><mn>2</mn><mi>u</mi></msubsup></mtd><mtd columnalign="center" style="text-align: center"><mi>⋯</mi></mtd><mtd columnalign="center" style="text-align: center"><msubsup><mover><mi mathvariant="bold-italic">𝒙</mi><mo accent="true">̃</mo></mover><mi>d</mi><mi>u</mi></msubsup></mtd></mtr></mtable><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">]</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \tilde{\mathbf{Y}}^u = \begin{bmatrix}
+    \tilde{\mathbf{y}}_1^u \\
+    \vdots \\
+    \tilde{\mathbf{y}}_n^u \\
+    \end{bmatrix} = \Big[
+        \begin{array}{c|c|c|c}
+        \tilde{\mathbf{x}}_1^u &amp; \tilde{\mathbf{x}}_2^u &amp; \cdots &amp; \tilde{\mathbf{x}}_d^u
+        \end{array}
+        \Big].
+\end{equation}</annotation></semantics></math> Setiap baris pada
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi mathvariant="bold-italic">𝒀</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><annotation encoding="application/x-tex">\tilde{\mathbf{Y}}^u</annotation></semantics></math>
+mewakili representasi vektor interaksi hasil pemrosesan sekuensial yang
+akan digunakan untuk melakukan skoring setiap interaksi pada
+pembelajaran maupun inferensi model.</p>
+<h2 id="proses-pembelajaran">Proses Pembelajaran</h2>
+<p>Dalam proses pembelajaran model sekuensial, diperlukan teknik
+pemisahan data yang dapat mengawetkan sifat urutan. Teknik yang umum
+digunakan adalah <em>next-item prediction</em> secara berurutan, yaitu
+barisan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><msub><mi>a</mi><mn>2</mn></msub><mo>,</mo><mi>⋯</mi><mo>,</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a_1, a_2, \cdots, a_n)</annotation></semantics></math>
+digunakan untuk memprediksi urutan berikutnya
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>a</mi><mn>2</mn></msub><mo>,</mo><msub><mi>a</mi><mn>3</mn></msub><mo>,</mo><mi>⋯</mi><mo>,</mo><msub><mi>a</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a_2, a_3, \cdots, a_{n+1})</annotation></semantics></math>.
+Diberikan barisan interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝒔</mi><mi>u</mi></msup><annotation encoding="application/x-tex">\mathbf{s}^u</annotation></semantics></math>.
+Maka cukup diperhatikan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">n+2</annotation></semantics></math>
+interaksi terakhir, dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mn>1</mn><mi>u</mi></msubsup><mo>,</mo><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mn>2</mn><mi>u</mi></msubsup><mo>,</mo><mi>⋯</mi><mo>,</mo><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>n</mi><mi>u</mi></msubsup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\tilde{s}_1^u, \tilde{s}_2^u, \cdots, \tilde{s}_n^u)</annotation></semantics></math>
+sebagai data latih,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mn>2</mn><mi>u</mi></msubsup><mo>,</mo><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mn>3</mn><mi>u</mi></msubsup><mo>,</mo><mi>⋯</mi><mo>,</mo><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow><mi>u</mi></msubsup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\tilde{s}_2^u, \tilde{s}_3^u, \cdots, \tilde{s}_{n+1}^u)</annotation></semantics></math>
+sebagai data validasi, dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mn>3</mn><mi>u</mi></msubsup><mo>,</mo><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mn>4</mn><mi>u</mi></msubsup><mo>,</mo><mi>⋯</mi><mo>,</mo><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mrow><mi>n</mi><mo>+</mo><mn>2</mn></mrow><mi>u</mi></msubsup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(\tilde{s}_3^u, \tilde{s}_4^u, \cdots, \tilde{s}_{n+2}^u)</annotation></semantics></math>
+sebagai data tes (lihat <a href="#fig:datasplit"
+data-reference-type="ref" data-reference="fig:datasplit">3.3</a>). Hal
+serupa juga dilakukan untuk barisan waktu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">𝒕</mi><mi>u</mi></msup><annotation encoding="application/x-tex">\mathbf{t}^u</annotation></semantics></math>.</p>
+<figure id="fig:datasplit" data-latex-placement="H">
+<p><span><img src="./Figure/data split.png" style="width:60.0%"
+alt="image" /></span></p>
+<figcaption>Teknik pemisahan data sekuensial.</figcaption>
+</figure>
+<p>Data latih dan data validasi digunakan untuk menentukan parameter
+model, sedangkan data tes digunakan untuk mengevaluasi model terhadap
+sampel data yang tidak dipelajari model.</p>
+<p>Misalkan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mtext mathvariant="normal">latih</mtext><mi>u</mi></msubsup><mo>,</mo><msubsup><mover><mi mathvariant="bold-italic">𝒕</mi><mo accent="true">̃</mo></mover><mtext mathvariant="normal">latih</mtext><mi>u</mi></msubsup><mo>,</mo><msubsup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mtext mathvariant="normal">valid</mtext><mi>u</mi></msubsup><mo>,</mo><msubsup><mover><mi mathvariant="bold-italic">𝒕</mi><mo accent="true">̃</mo></mover><mtext mathvariant="normal">valid</mtext><mi>u</mi></msubsup><mo>,</mo><msubsup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mtext mathvariant="normal">tes</mtext><mi>u</mi></msubsup><mo>,</mo><msubsup><mover><mi mathvariant="bold-italic">𝒕</mi><mo accent="true">̃</mo></mover><mtext mathvariant="normal">tes</mtext><mi>u</mi></msubsup></mrow><annotation encoding="application/x-tex">\tilde{\mathbf{s}}^u_{\text{latih}}, \tilde{\mathbf{t}}^u_{\text{latih}}, \tilde{\mathbf{s}}^u_{\text{valid}}, \tilde{\mathbf{t}}^u_{\text{valid}}, \tilde{\mathbf{s}}^u_{\text{tes}}, \tilde{\mathbf{t}}^u_{\text{tes}}</annotation></semantics></math>
+berturut-turut menyatakan barisan interaksi dan barisan waktu untuk data
+latih, data validasi, data tes untuk suatu <em>user</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>.
+Proses skoring kandidat dilakukan untuk menentukan skor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+diberikan <em>item</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>j</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}^u_j</annotation></semantics></math>,
+yaitu nilai logit model yang dinyatakan sebagai
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>ℓ</mi><mi>i</mi><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>j</mi><mi>u</mi></msubsup></msubsup><mo>=</mo><msub><mi mathvariant="bold-italic">𝒎</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">(</mo><msubsup><mover><mi mathvariant="bold-italic">𝒚</mi><mo accent="true">̃</mo></mover><mi>j</mi><mi>u</mi></msubsup><msup><mo stretchy="false" form="postfix">)</mo><mo>⊺</mo></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \ell_i^{\tilde{s}^u_j} = \mathbf{m}_{i} (\tilde{\mathbf{y}}^u_j)^\intercal,
+\end{equation}</annotation></semantics></math> dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="bold-italic">𝒎</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\mathbf{m}_i</annotation></semantics></math>
+merupakan representasi <em>embedding</em> untuk <em>item</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi mathvariant="bold-italic">𝒚</mi><mo accent="true">̃</mo></mover><mi>j</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{\mathbf{y}}^u_j</annotation></semantics></math>
+merupakan representasi vektor hasil pemrosesan sekuensial untuk
+interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>j</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}^u_j</annotation></semantics></math>.
+Untuk mengoptimasi parameter model, digunakan algoritma Adam pada Bab <a
+href="#sec:adam" data-reference-type="ref"
+data-reference="sec:adam">2.5.2</a> dengan fungsi <em>loss
+cross-entropy</em> yang dimodifikasi <span class="citation"
+data-cites="cceloss"></span>, yaitu
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℒ</mi><mo>=</mo><mi>−</mi><mstyle displaystyle="true"><mfrac><mn>1</mn><mi>n</mi></mfrac></mstyle><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mstyle displaystyle="true"><mfrac><mrow><mrow><mi mathvariant="normal">exp</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mi>ℓ</mi><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>k</mi><mi>u</mi></msubsup><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>j</mi><mi>u</mi></msubsup></msubsup><mo stretchy="false" form="postfix">)</mo></mrow><mrow><munder><mo>∑</mo><mrow><mi>i</mi><mo>∈</mo><mi>I</mi></mrow></munder><mrow><mi mathvariant="normal">exp</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msubsup><mi>ℓ</mi><mi>i</mi><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>j</mi><mi>u</mi></msubsup></msubsup><mo stretchy="false" form="postfix">)</mo></mrow></mfrac></mstyle><mspace width="0.222em"></mspace><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \mathcal{L}=
+    -\dfrac{1}{n} \sum_{j=1}^{n} \log \dfrac{\exp(\ell_{\tilde{s}^u_{k}}^{\tilde{s}^u_j})}{\sum_{i\in I} \exp(\ell_i^{\tilde{s}^u_j})}\:,
+\end{equation}</annotation></semantics></math> dengan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>j</mi><mi>u</mi></msubsup><mo>∈</mo><msubsup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mtext mathvariant="normal">latih</mtext><mi>u</mi></msubsup></mrow><annotation encoding="application/x-tex">\tilde{s}^u_j \in \tilde{\mathbf{s}}^u_\text{latih}</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>k</mi><mi>u</mi></msubsup><mo>=</mo><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mrow><mi>j</mi><mo>+</mo><mn>1</mn></mrow><mi>u</mi></msubsup><mo>∈</mo><msubsup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mtext mathvariant="normal">valid</mtext><mi>u</mi></msubsup></mrow><annotation encoding="application/x-tex">\tilde{s}^u_k = \tilde{s}^u_{j+1} \in \tilde{\mathbf{s}}^u_\text{valid}</annotation></semantics></math>.
+Fungsi <em>loss</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℒ</mi><annotation encoding="application/x-tex">\mathcal{L}</annotation></semantics></math>
+mengukur rataan probabilitas logit model prediksi positif terhadap semua
+kasus. Nilai fungsi <em>loss</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℒ</mi><annotation encoding="application/x-tex">\mathcal{L}</annotation></semantics></math>
+yang semakin kecil mendekati nol menandakan kondisi prediksi
+sempurna.</p>
+<h2 id="inferensi-model">Inferensi Model</h2>
+<p>Inferensi model merupakan proses menjalankan model untuk membuat
+prediksi atau keputusan dari masukan. Berbeda dengan pembelajaran model,
+inferensi model hanya membuat prediksi atau keputusan tanpa memperbarui
+dan mengubah parameter model. Dalam sistem rekomendasi sekuensial,
+inferensi model umumnya memberikan sebanyak
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+kandidat rekomendasi yang paling relevan. Relevansi tersebut diukur dari
+nilai logit tertinggi dari interaksi historis <em>user</em>.</p>
+<p>Misalkan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>φ</mi><annotation encoding="application/x-tex">\varphi</annotation></semantics></math>
+menyatakan suatu fungsi yang memetakan masukan model ke suatu vektor
+skor atau logit yang didefinisikan oleh Persamaan (<a href="#eq:3.19"
+data-reference-type="ref" data-reference="eq:3.19">[eq:3.19]</a>).
+<span>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi>φ</mi><mo>:</mo><mi>U</mi><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mi>I</mi><mspace width="0.222em"></mspace><mo>∪</mo><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo><msup><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msup></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mi>×</mi><mo stretchy="false" form="prefix">(</mo><mi mathvariant="double-struck">ℕ</mi><mspace width="0.222em"></mspace><mo>∪</mo><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo><msup><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msup><mo>→</mo><msup><mi mathvariant="double-struck">ℝ</mi><mrow><mo stretchy="false" form="prefix">|</mo><mi>I</mi><mo stretchy="false" form="prefix">|</mo></mrow></msup></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><msup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><mo>,</mo><msup><mover><mi mathvariant="bold-italic">𝒕</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><mo stretchy="false" form="postfix">)</mo></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>↦</mo><msup><mi mathvariant="bold-italic">ℓ</mi><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>n</mi><mi>u</mi></msubsup></msup><mo>,</mo></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:3.19}
+\begin{split}
+    \varphi: U \times (I \:\cup\: \{0\})^n &amp;\times (\mathbb{N} \:\cup\: \{0\})^n \to \mathbb{R}^{|I|} \\
+    (u, \tilde{\mathbf{s}}^u, \tilde{\mathbf{t}}^u) &amp;\longmapsto \bm{\ell}^{\tilde{s}_n^u},
+\end{split}
+\end{equation}</annotation></semantics></math> </span> di mana
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold-italic">ℓ</mi><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>n</mi><mi>u</mi></msubsup></msup><mo>=</mo><msup><mi mathvariant="bold-italic">𝑴</mi><mi>I</mi></msup><mo stretchy="false" form="prefix">(</mo><msubsup><mover><mi mathvariant="bold-italic">𝒚</mi><mo accent="true">̃</mo></mover><mi>n</mi><mi>u</mi></msubsup><msup><mo stretchy="false" form="postfix">)</mo><mo>⊺</mo></msup></mrow><annotation encoding="application/x-tex">\bm{\ell}^{\tilde{s}_n^u} = \mathbf{M}^I(\tilde{\mathbf{y}}_n^u)^\intercal</annotation></semantics></math>,
+adalah nilai logit setiap <em>item</em> diberikan <em>item</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>n</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}^u_n</annotation></semantics></math>.</p>
+<p>Selanjutnya, hasil rekomendasi untuk <em>user</em>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>,
+yaitu suatu himpunan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>R</mi><mi>m</mi><mi>u</mi></msubsup><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msubsup><mi>r</mi><mn>1</mn><mi>u</mi></msubsup><mo>,</mo><msubsup><mi>r</mi><mn>2</mn><mi>u</mi></msubsup><mo>,</mo><mi>⋯</mi><mo>,</mo><msubsup><mi>r</mi><mi>m</mi><mi>u</mi></msubsup><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">R^u_m = \{r^u_1, r^u_2, \cdots, r^u_m\}</annotation></semantics></math>,
+diperoleh dengan meninjau sebanyak
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+<em>item</em> dengan nilai logit tertinggi di
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi mathvariant="bold-italic">ℓ</mi><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>n</mi><mi>u</mi></msubsup></msup><annotation encoding="application/x-tex">\bm{\ell}^{\tilde{s}_n^u}</annotation></semantics></math>.
+Definisikan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">x</mi></mrow><mi>m</mi></msub><mspace width="0.167em"></mspace><mi mathvariant="bold-italic">𝒙</mi></mrow><annotation encoding="application/x-tex">\mathrm{argmax}_m \, \mathbf{x}</annotation></semantics></math>
+sebagai argumen atau indeks dari
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+elemen dengan nilai tertinggi di vektor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="bold-italic">𝒙</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal"></mi><mo>&#8289;</mo></mrow><mrow><msub><mi>r</mi><mi>p</mi></msub><mspace width="0.278em"></mspace><mo>∈</mo><mspace width="0.278em"></mspace><mi>S</mi></mrow></msub><mspace width="0.167em"></mspace><mi mathvariant="bold-italic">𝒙</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>r</mi><mi>p</mi></msub><mspace width="0.278em"></mspace><mo stretchy="false" form="prefix">|</mo><mspace width="0.278em"></mspace><mi>p</mi><mspace width="0.167em"></mspace><mo>≤</mo><mspace width="0.167em"></mspace><mi>m</mi><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>x</mi><msub><mi>r</mi><mn>1</mn></msub></msub><mo>≥</mo><msub><mi>x</mi><msub><mi>r</mi><mn>2</mn></msub></msub><mo>≥</mo><mi>⋯</mi><mo>≥</mo><msub><mi>x</mi><msub><mi>r</mi><mrow><mo stretchy="false" form="prefix">|</mo><mi>S</mi><mo stretchy="false" form="prefix">|</mo></mrow></msub></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+    \mathop{\mathrm{argmax}_m}_{r_p \;\in\; S} \, \mathbf{x} = \{
+    r_p \;|\; p \,\leq\, m, \; x_{r_1} \geq x_{r_2} \geq \cdots \geq x_{r_{|S|}}
+    \}.
+\end{equation}</annotation></semantics></math> Maka, proses inferensi
+model untuk memberikan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+rekomendasi kepada <em>user</em> u dengan barisan interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><annotation encoding="application/x-tex">\tilde{\mathbf{s}}^u</annotation></semantics></math>
+dan barisan waktu
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi mathvariant="bold-italic">𝒕</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><annotation encoding="application/x-tex">\tilde{\mathbf{t}}^u</annotation></semantics></math>
+secara lengkap diberikan oleh
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>R</mi><mi>m</mi><mi>u</mi></msubsup><mo>=</mo><msub><mrow><mi mathvariant="normal"></mi><mo>&#8289;</mo></mrow><mrow><msub><mi>r</mi><mi>p</mi></msub><mspace width="0.278em"></mspace><mo>∈</mo><mspace width="0.278em"></mspace><mi>I</mi></mrow></msub><mspace width="0.278em"></mspace><mi>φ</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo>,</mo><msup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><mo>,</mo><msup><mover><mi mathvariant="bold-italic">𝒕</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation*}
+    R^u_m = 
+    \mathop{\mathrm{argmax}_m}_{r_p \;\in\; I} \; \varphi(u, \tilde{\mathbf{s}}^u, \tilde{\mathbf{t}}^u).
+\end{equation*}</annotation></semantics></math></p>
+<h1 id="hasil-dan-analisis">Hasil dan Analisis</h1>
+<h2 id="sec:data">Data</h2>
+<p>Pada tugas akhir ini, terdapat dua dataset yang digunakan untuk
+melatih model sistem rekomendasi sekuensial, yaitu dataset dari
+MovieLens dan dataset dari LastFM. MovieLens adalah kumpulan dataset
+rating film yang disediakan oleh GroupLens Research, sebuah grup riset
+dari University of Minnesota, Amerika Serikat yang berfokus pada
+pengembangan sistem rekomendasi cerdas. LastFM adalah kumpulan dataset
+lagu yang disediakan oleh Last.fm yang dikenal luas untuk riset mengenai
+sistem rekomendasi dan similaritas lagu.</p>
+<div id="tab:data">
+<table>
+<caption>Statistik dataset yang digunakan.</caption>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Dataset</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><em>user</em></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><em>item</em></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">interaksi</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">interaksi</td>
+<td style="text-align: center;"><strong>Kepadatan</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">MovieLens-1M</td>
+<td style="text-align: center;">6,040</td>
+<td style="text-align: center;">3,416</td>
+<td style="text-align: center;">999,611</td>
+<td style="text-align: center;">165.5</td>
+<td style="text-align: center;">0.049</td>
+</tr>
+<tr>
+<td style="text-align: left;">LastFM-2K</td>
+<td style="text-align: center;">1,892</td>
+<td style="text-align: center;">12,523</td>
+<td style="text-align: center;">71,064</td>
+<td style="text-align: center;">98.56</td>
+<td style="text-align: center;">0.003</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="#tab:data" data-reference-type="ref"
+data-reference="tab:data">4.1</a> menunjukkan keterangan statistik dasar
+kedua dataset, yaitu MovieLens-1M dan LastFM-2K. MovieLens-1M memiliki
+interaksi <em>user-item</em> sebanyak hampir 1 juta (1M) interaksi
+dengan rata-rata 165 interaksi per <em>user</em> dan berisi informasi
+yang mencakup ID <em>user</em>, ID film (<em>item</em>), rating film
+(<em>explicit feedback</em>), dan catatan waktu (<em>timestamp</em>).
+LastFM-2K memiliki hampir 2 ribu <em>user</em> (2K), 71 ribu interaksi
+<em>user-item</em> dengan rata-rata 98 interkasi per <em>user</em> dan
+berisi informasi yang mencakup ID <em>user</em>, ID lagu
+(<em>item</em>), ID <em>tag</em>, dan catatan waktu
+(<em>timestamp</em>).</p>
+<h2 id="sec:exmodel">Hasil Eksperimentasi Model</h2>
+<p>Eksperimentasi model dilakukan untuk menguji performa model
+berdasarkan hasil empirik. Model sistem rekomendasi sekuensial yang
+telah dirancang dilatih menggunakan dataset pada Bab <a href="#sec:data"
+data-reference-type="ref" data-reference="sec:data">4.1</a>.
+Eksperimentasi model bertujuan untuk menjawab 3 hal berikut.</p>
+<ol>
+<li><p>Apakah model yang menggunakan atensi pola temporal dapat
+memberikan performa yang lebih baik?</p></li>
+<li><p>Bagaimana pengaruh <em>hyperparameter</em> dari atensi pola
+temporal terhadap performa model?</p></li>
+<li><p>Bagaimana skalabilitas model yang dirancang terhadap data
+interaksi dengan kepadatan yang lebih rendah (<em>sparse</em>)?</p></li>
+</ol>
+<div id="tab:hyperparams">
+<table>
+<caption><em>Hyperparameter</em> model yang digunakan.</caption>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Dataset</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">barisan</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ruang laten</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">kernel</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">pola temporal</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">MovieLens-1M</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">16</td>
+</tr>
+<tr>
+<td style="text-align: left;">LastFM-2K</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">12</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Model rancangan didefinisikan dengan <em>hyperparameter</em> seperti
+pada <a href="#tab:hyperparams" data-reference-type="ref"
+data-reference="tab:hyperparams">4.2</a>. Digunakan metrik evaluasi
+<em>hit rate</em> (HR) dan <em>discounted cumulative gain</em> (DCG)
+pada setiap
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi>R</mi><mi>m</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">R_{m}^u</annotation></semantics></math>
+yang dinyatakan oleh Persamaan (<a href="#eq:4.1"
+data-reference-type="ref" data-reference="eq:4.1">[eq:4.1]</a>).
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mtext mathvariant="normal">HR@</mtext><mi>m</mi></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mfrac><mn>1</mn><mrow><mo stretchy="false" form="prefix">|</mo><mi>U</mi><mo stretchy="false" form="prefix">|</mo></mrow></mfrac><munder><mo>∑</mo><mrow><mi>u</mi><mspace width="0.222em"></mspace><mo>∈</mo><mspace width="0.222em"></mspace><mi>U</mi></mrow></munder><mspace width="0.278em"></mspace><mo stretchy="false" form="prefix">|</mo><msubsup><mi>R</mi><mi>m</mi><mi>u</mi></msubsup><mspace width="0.278em"></mspace><mo>∩</mo><mspace width="0.278em"></mspace><msup><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi></mrow><mi>u</mi></msup><mo stretchy="false" form="postfix">|</mo></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mtext mathvariant="normal">DCG@</mtext><mi>m</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mo stretchy="false" form="prefix">|</mo><mi>U</mi><mo stretchy="false" form="prefix">|</mo></mrow></mfrac></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><munder><mo>∑</mo><mrow><mi>u</mi><mspace width="0.222em"></mspace><mo>∈</mo><mspace width="0.222em"></mspace><mi>U</mi></mrow></munder><mspace width="0.278em"></mspace><mfrac><mrow><mo stretchy="false" form="prefix">|</mo><msubsup><mi>R</mi><mi>m</mi><mi>u</mi></msubsup><mspace width="0.278em"></mspace><mo>∩</mo><mspace width="0.278em"></mspace><msup><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi></mrow><mi>u</mi></msup><mo stretchy="false" form="postfix">|</mo></mrow><mrow><msub><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mn>2</mn></msub><mo stretchy="false" form="prefix">(</mo><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow><mo stretchy="false" form="prefix">(</mo><msup><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi></mrow><mi>u</mi></msup><mo>,</mo><msubsup><mi>R</mi><mi>m</mi><mi>u</mi></msubsup><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{equation}
+ \label{eq:4.1}
+\begin{split}
+    \text{HR@}m &amp;= \frac{1}{|U|} \sum_{u \:\in\: U} \; \lvert R_{m}^u \;\cap\; \mathrm{rel}^u \rvert \\
+    \text{DCG@}m = \frac{1}{|U|} &amp;\sum_{u \:\in\: U} \; \frac{\lvert R_{m}^u \;\cap\; \mathrm{rel}^u \rvert}{\log_2(\mathrm{pos}(\mathrm{rel}^u, R_m^u) + 1)}.
+\end{split}
+\end{equation}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi></mrow><mi>u</mi></msup><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>s</mi><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">|</mo><mspace width="0.222em"></mspace><mi>s</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><msubsup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mtext mathvariant="normal">tes</mtext><mi>u</mi></msubsup><mo stretchy="false" form="postfix">}</mo><mo>∖</mo><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">{</mo><msubsup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mtext mathvariant="normal">valid</mtext><mi>u</mi></msubsup><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathrm{rel}^u = \{s \:|\: s \in \{\tilde{\mathbf{s}}_\text{tes}^u\} \backslash\ 
+\{\tilde{\mathbf{s}}_\text{valid}^u\} \}</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">s</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{pos}(A, B)</annotation></semantics></math>
+menyatakan posisi indeks anggota himpunan A dalam himpunan B. Perhatikan
+bahwa metrik DCG merupakan perumuman dari metrik HR yang
+mempertimbangkan urutan rekomendasi. Metrik HR dan DCG termasuk sebagai
+metrik skor, sehingga semakin besar nilainya mendekati 1 maka performa
+model dinilai semakin baik.</p>
+<p>Sebagai perbandingan untuk menilai peningkatan performa model sistem
+rekomendasi yang dirancang, model referensi untuk sistem rekomendasi
+sekuensial TiSASRec <span class="citation" data-cites="tisasrec"></span>
+juga didefinisikan dengan <em>hyperparameter</em> yang serupa, tetapi
+tanpa menggunakan atensi pola temporal.</p>
+<figure id="fig:plotmodel" data-latex-placement="H">
+<p><span><img src="./Figure/plot_model_both.png" style="width:100.0%"
+alt="image" /></span></p>
+<figcaption>Grafik perbandingan performa model yang dirancang dan
+TiSASRec.</figcaption>
+</figure>
+<p><a href="#fig:plotmodel" data-reference-type="ref"
+data-reference="fig:plotmodel">4.1</a> menunjukkan hasil validasi model
+rancangan dan model TiSASRec pada dataset MovieLens-1M. Model rancangan
+dilatih selama
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>20</mn><annotation encoding="application/x-tex">20</annotation></semantics></math>
+epoch, dan model TiSASRec dilatih selama
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>50</mn><annotation encoding="application/x-tex">50</annotation></semantics></math>
+epoch. Performa model diukur menggunakan metrik HR@10 dan DCG@10, yaitu
+pada
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>
+rekomendasi paling relevan.</p>
+<p>Selanjutnya, dilakukan eksperimentasi model dengan memilih kombinasi
+<em>hyperparameter</em> lain. Di bagian ini, <em>hyperparameter</em>
+yang diubah hanya dari proses atensi pola temporal, yaitu banyak kernel
+dan langkah pola temporal. Pengaruh <em>hyperparameter</em> seperti
+panjang barisan, dimensi ruang laten, dan selang waktu maksimum antar
+interaksi diasumsikan mengikuti model referensi TiSASRec <span
+class="citation" data-cites="tisasrec"></span>.</p>
+<figure id="fig:plotk" data-latex-placement="H">
+<p><span><img src="./Figure/plot_k_both.png" style="width:100.0%"
+alt="image" /></span></p>
+<figcaption>Grafik pilihan banyak kernel terhadap performa
+model.</figcaption>
+</figure>
+<figure id="fig:plotw" data-latex-placement="H">
+<p><span><img src="./Figure/plot_w_both.png" style="width:100.0%"
+alt="image" /></span></p>
+<figcaption>Grafik pilihan langkah pola temporal terhadap performa
+model.</figcaption>
+</figure>
+<p><a href="#fig:plotk" data-reference-type="ref"
+data-reference="fig:plotk">4.2</a> dan <a href="#fig:plotw"
+data-reference-type="ref" data-reference="fig:plotw">4.3</a> menunjukkan
+hasil validasi model rancangan pada dataset MovieLens-1M dengan pilihan
+banyak kernel dan langkah pola temporal yang berbeda-beda. Di mana
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+merupakan banyak kernel yang digunakan dalam atensi pola temporal, dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math>
+merupakan langkah pola temporal yang digunakan. Performa model juga
+diukur menggunakan metrik HR@10 dan DCG@10.</p>
+<p>Mengikuti teknik evaluasi untuk tugas rekomendasi oleh <span
+class="citation" data-cites="eval1"></span> dan <span class="citation"
+data-cites="eval2"></span>, digunakan sampel acak sebagai sampel negatif
+rekomendasi. Sampel negatif rekomendasi bertujuan sebagai penyesuaian
+hasil rekomendasi yang dibandingkan terhadap <em>item-item</em> yang
+diasumsikan tidak relevan atau kemungkinan kecil berinteraksi dengan
+<em>user</em>.</p>
+<div id="tab:modeleval">
+<table>
+<caption>Hasil evaluasi model.</caption>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Dataset</strong></td>
+<td style="text-align: center;"><strong>Metrik</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">TiSASRec</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">dirancang</td>
+<td style="text-align: center;"><strong>Peningkatan</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td rowspan="2" style="text-align: left;">MovieLens-1M</td>
+<td style="text-align: center;">HR@10</td>
+<td style="text-align: center;">0.7484</td>
+<td style="text-align: center;">0.7903</td>
+<td style="text-align: center;">5.6%</td>
+</tr>
+<tr>
+<td style="text-align: center;">DCG@10</td>
+<td style="text-align: center;">0.4923</td>
+<td style="text-align: center;">0.5650</td>
+<td style="text-align: center;">14.7%</td>
+</tr>
+<tr>
+<td rowspan="2" style="text-align: left;">LastFM-2K</td>
+<td style="text-align: center;">HR@10</td>
+<td style="text-align: center;">0.4983</td>
+<td style="text-align: center;">0.5599</td>
+<td style="text-align: center;">12.4%</td>
+</tr>
+<tr>
+<td style="text-align: center;">DCG@10</td>
+<td style="text-align: center;">0.2696</td>
+<td style="text-align: center;">0.3252</td>
+<td style="text-align: center;">20.6%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="#tab:modeleval" data-reference-type="ref"
+data-reference="tab:modeleval">4.3</a> menunjukkan hasil evaluasi model
+rancangan dan model TiSASRec yang dilakukan terhadap data tes sebagai
+himpunan data yang tidak dipelajari oleh model. Evaluasi dilakukan pada
+kedua dataset MovieLens-1M dan LastFM-2K dengan ukuran sampel negatif
+berturut-turut sebanyak 100 sampel dan 50 sampel.</p>
+<h2 id="analisis">Analisis</h2>
+<p>Hasil eksperimentasi model yang telah dilakukan di Bab <a
+href="#sec:exmodel" data-reference-type="ref"
+data-reference="sec:exmodel">4.2</a> menunjukkan bahwa dengan
+menggunakan atensi pola temporal, model sistem rekomendasi dapat
+memberikan personalisasi yang lebih. <a href="#tab:modeleval"
+data-reference-type="ref" data-reference="tab:modeleval">4.3</a>
+mendukung performa model rancangan yang dilakukan terhadap data tes
+memperlihatkan hasil evaluasi yang lebih baik dengan peningkatan skor
+HR@10 sebesar
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5.6</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">5.6\%</annotation></semantics></math>
+dan skor DCG@10 sebesar
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>14.7</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">14.7\%</annotation></semantics></math>
+terhadap model TiSASRec. Pada <a href="#fig:plotmodel"
+data-reference-type="ref" data-reference="fig:plotmodel">4.1</a>, model
+TiSASRec memerlukan 50 epoch untuk mencapai skor HR@10 sebesar 0.8083
+dan skor DCG@10 sebesar 0.5593, sedangkan model rancangan dengan
+menambahkan mekanisme atensi pola temporal hanya memerlukan 20 epoch
+untuk mencapai skor HR@10 sebesar 0.8213 dan skor DCG@10 sebesar 0.6045.
+Hal ini tidak hanya menunjukkan model rancangan dengan atensi pola
+temporal mampu memberikan performa yang lebih baik, tetapi juga mampu
+melakukan pembelajaran yang lebih cepat dan efisien untuk mencapai
+kekonvergenan.</p>
+<p>Selanjutnya, eksperimentasi model yang dilakukan dengan memilih
+<em>hyperparameter</em> dari atensi pola temporal seperti yang
+ditunjukkan pada <a href="#fig:plotk" data-reference-type="ref"
+data-reference="fig:plotk">4.2</a> dan <a href="#fig:plotw"
+data-reference-type="ref" data-reference="fig:plotw">4.3</a>
+memperlihatkan perbedaan hasil validasi yang tidak begitu signifikan
+secara skor. Namun, pilihan <em>hyperparameter</em> mempengaruhi
+kestabilan setiap epoch dalam pembelajaran model. Pilihan banyak kernel
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+yang semakin banyak berarti semakin besar pula ruang fitur konvolusi
+yang dapat dipelajari. Akan tetapi, ruang fitur yang terlalu besar dapat
+mengakibatkan redudansi pembelajaran yang menurunkan performa model.
+Pilihan langkah pola temporal
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math>
+sebagai <em>window size</em> yang disertakan merupakan teknik praktik
+yang umum pada data deret waktu dengan mengasumsikan terdapat langkah
+waktu sebelum <em>window size</em> yang tidak memberikan informasi
+relevan terhadap waktu kini <span class="citation"
+data-cites="tpa"></span>. Namun, pilihan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math>
+yang terlalu kecil mengakibatkan pembelajaran menjadi tidak stabil. Oleh
+karena itu, perlu dipilih
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math>
+yang sesuai dengan definisi model masing-masing untuk memberikan hasil
+yang maksimal.</p>
+<p>Model rancangan juga dilatih pada dataset LastFM-2K untuk menguji
+skalabilitas model pada data <em>sparse</em>. <a href="#tab:data"
+data-reference-type="ref" data-reference="tab:data">4.1</a> menunjukkan
+perbedaan rataan interaksi dan kepadatan kedua dataset yang digunakan
+pada tugas akhir ini. Dalam tugas rekomendasi, data <em>sparse</em> atau
+data dengan interaksi <em>user-item</em> yang cenderung rendah menjadi
+salah satu tantangan karena kurangnya variansi dan besarnya bias yang
+mungkin dari interaksi <em>user-item</em> yang belum terjadi. Namun,
+model yang dilatih pada dataset LastFM-2k yang ditunjukkan pada <a
+href="#tab:modeleval" data-reference-type="ref"
+data-reference="tab:modeleval">4.3</a> memperlihatkan bahwa model
+rancangan mampu meningkatkan skor evaluasi model HR@10 dan DCG@10
+berturut-turut sebesar
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>12.4</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">12.4\%</annotation></semantics></math>
+dan
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>20.6</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">20.6\%</annotation></semantics></math>.
+Jadi model yang dirancang dengan atensi pola temporal dapat digunakan
+untuk melakukan tugas rekomendasi pada data <em>dense</em> maupun data
+yang lebih <em>sparse</em>.</p>
+<h1 id="kesimpulan-dan-saran">Kesimpulan dan Saran</h1>
+<h2 id="kesimpulan">Kesimpulan</h2>
+<p>Setelah merancang model sistem rekomendasi yang memodelkan barisan
+interaksi dengan menggunakan mekanisme <em>self-attention</em> dan
+atensi pola temporal, penulis menarik beberapa kesimpulan dari tugas
+akhir ini sebagai berikut.</p>
+<ol>
+<li><p>Model sistem rekomendasi sekuensial yang dirancang melakukan
+pemrosesan sekuensial melalui mekanisme <em>self-attention</em> yang
+memungkinkan model untuk secara adaptif memberi perhatian lebih pada
+interaksi tertentu. Mekanisme <em>self-attention</em> menerima masukan
+representasi <em>embedding</em> dari barisan interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mover><mi mathvariant="bold-italic">𝒔</mi><mo accent="true">̃</mo></mover><mi>u</mi></msup><annotation encoding="application/x-tex">\tilde{\mathbf{s}}^u</annotation></semantics></math>
+dan memprosesnya menjadi suatu vektor atensi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi mathvariant="bold-italic">𝒛</mi><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\mathbf{z}^u_i</annotation></semantics></math>
+untuk setiap interaksi
+ke-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.
+Proses <em>self-attention</em> dapat berjalan secara paralel pada
+beberapa <em>head</em>, kemudian setiap vektor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi mathvariant="bold-italic">𝒛</mi><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\mathbf{z}^u_i</annotation></semantics></math>
+digabungkan melalui suatu pemetaan linear terhadap semua <em>head</em>
+menghasilkan vektor atensi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mi mathvariant="bold-italic">𝒚</mi><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\mathbf{y}^u_i</annotation></semantics></math>
+untuk setiap interaksi
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msubsup><mover><mi>s</mi><mo accent="true">̃</mo></mover><mi>i</mi><mi>u</mi></msubsup><annotation encoding="application/x-tex">\tilde{s}^u_i</annotation></semantics></math>.</p></li>
+<li><p>Model sistem rekomendasi sekuensial yang dirancang menyertakan
+rentang waktu antar interaksi dalam pemodelan karena kondisi nyata dari
+preferensi seseorang dapat berubah terhadap waktu. Untuk menyertakan
+waktu dalam model, digunakan teknik <em>time-aware</em> dengan
+menambahkan representasi <em>embedding</em> rentang waktu. Hasil
+representasi <em>embedding</em> tersebut diasumsikan memiliki
+karakteristik data deret waktu dengan pola temporal antar interaksi.
+Oleh karena itu, digunakan atensi pola temporal untuk memberi perhatian
+lebih pada pola (<em>time-invariant</em>) sepanjang langkah dari suatu
+fitur. Penggunaan teknik <em>time-aware</em> dan atensi pola temporal
+memungkinkan model secara eksplisit untuk memperhatikan <em>temporal
+dynamics</em>.</p></li>
+</ol>
+<h2 id="saran">Saran</h2>
+<p>Berdasarkan hasil eksperimentasi model yang telah dilakukan, terdapat
+beberapa saran dan pengembangan yang ingin penulis sampaikan untuk tugas
+akhir ini.</p>
+<ol>
+<li><p>Model sistem rekomendasi sekuensial yang dirancang masih
+mengalami ketidakstabilan dalam proses pembelajaran model. Salah satu
+penyebab yang mungkin adalah kompleksitas model yang meningkat akibat
+bertambahnya parameter model dari representasi rentang waktu dan proses
+atensi pola temporal. Oleh karena itu, sangat disarankan untuk melakukan
+regularisasi model seperti teknik <em>ridge</em> (L2) atau
+<em>stochastic shared embedding</em> (SSE).</p></li>
+<li><p>Teknik evaluasi model dalam tugas akhir ini masih menggunakan
+pengambilan sampel negatif secara acak. Pengambilan sampel negatif
+sangat mempengaruhi hasil evaluasi model, dengan demikian perlu
+dilakukan eksplorasi lebih lanjut terkait teknik pengambilan sampel
+negatif untuk tugas rekomendasi.</p></li>
+<li><p>Tugas akhir ini belum dapat menyertakan informasi profil
+<em>user</em> maupun <em>item</em> dalam model sistem rekomendasi
+sekuensial yang dirancang. Informasi seperti profil <em>user</em> dan
+<em>item</em> dipercaya dapat memberikan konteks dan personalisasi yang
+lebih dalam sistem rekomendasi. Untuk itu, model yang dirancang dalam
+tugas akhir ini masih dapat dikembangkan untuk menyertakan kedua
+informasi tersebut sebagai <em>context-aware</em> dalam sistem
+rekomendasi.</p></li>
+</ol>
+</body>
+</html>
